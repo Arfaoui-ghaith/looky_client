@@ -1,42 +1,46 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-function CustomerSignUpForm() {
+function CustomerSignInForm() {
     return (
         <React.Fragment>
-            <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                <div className="d-flex align-items-center justify-content-between mb-3">
-                    <a href="index.html" className="">
-                        <h3 className="text-primary"><i className="fa fa-user-edit me-2"></i>DarkPan</h3>
-                    </a>
-                    <h3>Sign Up</h3>
-                </div>
+                <div className="d-flex align-items-center justify-content-between mb-1">
+                    <Link to="/" className="">
+                        <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                    </Link>
 
-                <div className="form-floating mb-3">
+                </div>
+                <div className="form-floating mb-2">
                     <input type="email" className="form-control" id="floatingInput"
                            placeholder="name@example.com"/>
                     <label htmlFor="floatingInput">Email address</label>
                 </div>
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-2">
                     <input type="password" className="form-control" id="floatingPassword"
                            placeholder="Password"/>
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
-
-                <button type="submit" className="btn btn-primary py-3 w-100 mb-4">Sign Ip</button>
-                <p className="text-center mb-0">Already have an Account? <a href="">Sign Up</a></p>
-                <div className="d-flex pt-1 m-n1">
+                <div className="d-flex align-items-center justify-content-between mb-1">
+                    <div className="form-check">
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                    </div>
+                    <a href="">Forgot Password</a>
+                </div>
+                <button type="submit" className="btn-primary py-3 w-100 mb-2">Sign In</button>
+                <div className="separator">OR</div>
+                <div className="d-flex justify-content-center pt-1 m-n1 ">
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-twitter"></i></a>
+                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i className="fab fa-facebook-f"></i></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-facebook-f"></i></a>
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-youtube"></i></a>
+                        className="fab fa-google"></i></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-linkedin-in"></i></a>
                 </div>
-            </div>
+                <p className="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
         </React.Fragment>
     );
 }
 
-export default CustomerSignUpForm;
+export default CustomerSignInForm;

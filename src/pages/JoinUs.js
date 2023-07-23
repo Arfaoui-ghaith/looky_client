@@ -1,7 +1,7 @@
 import React from "react";
-import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
 
-function SignUp() {
+function JoinUs() {
     return (
         <React.Fragment>
 
@@ -47,7 +47,7 @@ function SignUp() {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary py-3 w-100 mb-4">Back To Home</button>
+                        <Link to="/" className="btn btn-primary py-3 w-100 mb-4">Back To Home</Link>
                     </div>
                 </div>
             </div>
@@ -55,4 +55,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default JoinUs;

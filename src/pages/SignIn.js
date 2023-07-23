@@ -1,38 +1,50 @@
 import React from "react";
+import "./SignIn.css";
+import CustomerSignInForm from "../components/CustomerSignInForm";
+import BarberShopSignInForm from "../components/BarberShopSignInForm";
+
 
 function SignIn() {
+    let [condition,setCondition] = React.useState(false);
+
+    let container1 = "container right-panel-active"
+    let container2 = "container"
     return (
         <React.Fragment>
-            <div className="container-fluid">
+            <div className="container-fluid body">
                 <div className="row h-100 align-items-center justify-content-center" style={{"min-height": "100vh"}}>
-                    <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                        <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                            <div className="d-flex align-items-center justify-content-between mb-3">
-                                <a href="index.html" className="">
-                                    <h3 className="text-primary"><i className="fa fa-user-edit me-2"></i>DarkPan</h3>
-                                </a>
-                                <h3>Sign In</h3>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput"
-                                       placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Email address</label>
-                            </div>
-                            <div className="form-floating mb-4">
-                                <input type="password" className="form-control" id="floatingPassword"
-                                       placeholder="Password"/>
-                                    <label htmlFor="floatingPassword">Password</label>
-                            </div>
-                            <div className="d-flex align-items-center justify-content-between mb-4">
-                                <div className="form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                    <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-12">
+                        <div className="bg-secondary my-4 mx-3">
+
+                        <div className={condition ? container1 : container2}>
+                            <div className="form-container sign-up-container">
+                                <div className="p-4">
+                                    <CustomerSignInForm/>
                                 </div>
-                                <a href="">Forgot Password</a>
                             </div>
-                            <button type="submit" className="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                            <p className="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
+                            <div className="form-container sign-in-container">
+                                <div className="p-4">
+                                    <BarberShopSignInForm/>
+                                </div>
+                            </div>
+                            <div className="overlay-container">
+                                <div className="overlay">
+                                    <div className="overlay-panel overlay-left">
+                                        <h1>Hi, Customer!</h1>
+                                        <p>To sign in you can use your personel or social infos.</p>
+                                        <button className="ghost btn-primary" onClick={()=>setCondition(false)}>Im Barber!</button>
+                                    </div>
+                                    <div className="overlay-panel overlay-right">
+                                        <h1>Hi, Barber!</h1>
+                                        <p>To sign in you can use your personel infos only.</p>
+                                        <button className="ghost btn-primary" onClick={()=>setCondition(true)}>Im Customer!</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
