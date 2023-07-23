@@ -1,13 +1,14 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function BarberShopSignUpForm() {
     return (
         <React.Fragment>
             <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                 <div className="d-flex align-items-center justify-content-between mb-3">
-                    <a href="index.html" className="">
-                        <h3 className="text-primary"><i className="fa fa-user-edit me-2"></i>DarkPan</h3>
-                    </a>
+                    <Link to="/" className="">
+                        <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                    </Link>
                     <h3>Sign Up</h3>
                 </div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
@@ -31,27 +32,8 @@ function BarberShopSignUpForm() {
                            placeholder="Password"/>
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
-                <fieldset className="row mb-3">
-                    <legend className="col-form-label col-sm-2 pt-0">Gender</legend>
-                    <div className="col-sm-10">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios"
-                                   id="gridRadios1" value="option1"/>
-                            <label className="form-check-label" htmlFor="gridRadios1">
-                                Male
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios"
-                                   id="gridRadios2" value="option2"/>
-                            <label className="form-check-label" htmlFor="gridRadios2">
-                                Female
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
                 <button type="submit" className="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
-                <p className="text-center mb-0">Already have an Account? <a href="">Sign In</a></p>
+                <p className="text-center mt-3">Already have an Account? <Link to="/sign-in">Sign In</Link></p>
             </div>
         </React.Fragment>
     );

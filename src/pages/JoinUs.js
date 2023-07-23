@@ -24,8 +24,8 @@ function JoinUs() {
                                         <p>I’m a client, searching a new look.</p>
 
                                     </div>
-                                    <div className="btn btn-square rounded-0"><i
-                                        className="fa fa-arrow-right text-primary"></i></div>
+                                    <Link to="/sign-up/customer" className="btn btn-square rounded-0"><i
+                                        className="fa fa-arrow-right text-primary"></i></Link>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-6 wow fadeInUp m-2" data-wow-delay="0.1s"
@@ -42,8 +42,8 @@ function JoinUs() {
                                         <p>I’m a barber shop, looking for work.</p>
 
                                     </div>
-                                    <div className="btn btn-square rounded-0"><i
-                                        className="fa fa-arrow-right text-primary"></i></div>
+                                    <Link to="/sign-up/barber" className="btn btn-square rounded-0"><i
+                                        className="fa fa-arrow-right text-primary"></i></Link>
                                 </div>
                             </div>
                         </div>

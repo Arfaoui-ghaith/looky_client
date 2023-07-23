@@ -1,13 +1,14 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function CustomerSignUpForm() {
     return (
         <React.Fragment>
             <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                 <div className="d-flex align-items-center justify-content-between mb-3">
-                    <a href="index.html" className="">
-                        <h3 className="text-primary"><i className="fa fa-user-edit me-2"></i>DarkPan</h3>
-                    </a>
+                    <Link to="/" className="">
+                        <h3 className="text-primary"><i className="fa fa-user-edit me-2"></i>LOOKY</h3>
+                    </Link>
                     <h3>Sign Up</h3>
                 </div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
@@ -51,8 +52,9 @@ function CustomerSignUpForm() {
                     </div>
                 </fieldset>
                 <button type="submit" className="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
-                <p className="text-center mb-0">Already have an Account? <a href="">Sign In</a></p>
-                <div className="d-flex pt-1 m-n1">
+
+                <div className="separator">OR</div>
+                <div className="d-flex justify-content-center pt-1 m-n1">
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-twitter"></i></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
@@ -62,6 +64,7 @@ function CustomerSignUpForm() {
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-linkedin-in"></i></a>
                 </div>
+                <p className="text-center mt-3">Already have an Account? <Link to="/sign-in">Sign In</Link></p>
             </div>
         </React.Fragment>
     );

@@ -38,7 +38,7 @@ function CustomerSignInForm() {
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-linkedin-in"></i></a>
                 </div>
-                <p className="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
+                <p className="text-center mb-0">Don't have an Account? <Link to="/sign-up/customer">Sign Up</Link></p>
         </React.Fragment>
     );
 }

@@ -30,13 +30,13 @@ function SignIn() {
                             <div className="overlay-container">
                                 <div className="overlay">
                                     <div className="overlay-panel overlay-left">
-                                        <h1>Hi, Customer!</h1>
-                                        <p>To sign in you can use your personel or social infos.</p>
+                                        <h1 className="h11">Hi, Customer!</h1>
+                                        <p className="p1">To sign in you can use your personel or social infos.</p>
                                         <button className="ghost btn-primary" onClick={()=>setCondition(false)}>Im Barber!</button>
                                     </div>
                                     <div className="overlay-panel overlay-right">
-                                        <h1>Hi, Barber!</h1>
-                                        <p>To sign in you can use your personel infos only.</p>
+                                        <h1 className="h11">Hi, Barber!</h1>
+                                        <p className="p1">To sign in you can use your personel infos only.</p>
                                         <button className="ghost btn-primary" onClick={()=>setCondition(true)}>Im Customer!</button>
                                     </div>
                                 </div>
