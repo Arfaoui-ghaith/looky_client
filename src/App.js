@@ -9,12 +9,14 @@ import BarberShopPage from "./pages/BarberShopPage";
 import CustomerSignInForm from "./components/CustomerSignInForm";
 import CustomerSignUp from "./pages/CustomerSignUp";
 import BarberShopSignUp from "./pages/BarberShopSignUp";
+import {Toaster} from "react-hot-toast";
 
 
 function App() {
   return (
 
     <Router>
+        <Toaster />
         <Routes>
             <Route exact path='/' element={<Home/>}/>
             <Route exact path='/join-us' element={<JoinUs/>}/>

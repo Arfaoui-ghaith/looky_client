@@ -1,15 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import ImageUploader from "./ImageUploader";
 
 function BarberShopSignUpForm() {
     return (
         <React.Fragment>
             <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                <div className="d-flex align-items-center justify-content-between mb-3">
+                <div className="d-flex align-items-center justify-content-between">
                     <Link to="/" className="">
                         <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
                     </Link>
                     <h3>Sign Up</h3>
+                </div>
+                <div className="d-flex align-items-center justify-content-between">
+                    <ImageUploader/>
                 </div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
                     <div className="form-floating me-1">
