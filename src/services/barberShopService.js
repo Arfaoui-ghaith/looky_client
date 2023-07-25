@@ -1,15 +1,19 @@
 import { callForBarber } from '../utils/httpCall';
 
 export const fetchBarberShops = async () => {
-    try{
         const res = await callForBarber({
             url: '/barberShops',
             method: 'get'
         });
-        return res.data;
-    }catch (e) {
-        console.error(e);
-    }
+        return res;
+}
+
+export const fetchBarberInfos = async (id) => {
+    const res = await callForBarber({
+        url: `/barberShops/public/${id}`,
+        method: 'get'
+    });
+    return res;
 }
 
 export const updateBarberLogo = async (formData) => {

@@ -8,7 +8,7 @@ function BarberTeamCard({image, name}) {
                  style={{"visibility": "visible", "animation-delay": "0.1s", "animation-name": "fadeInUp"}}>
                 <div className="team-item">
                     <div className="team-img position-relative overflow-hidden">
-                        <img className="img-fluid" src="img/team-1.jpg" alt=""/>
+                        <img className="img-fluid" src="/img/team-1.jpg" alt=""/>
                             <div className="team-social">
                                 <a className="btn btn-square" href=""><i className="fab fa-facebook-f"></i></a>
                                 <a className="btn btn-square" href=""><i className="fab fa-twitter"></i></a>

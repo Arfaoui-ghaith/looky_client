@@ -8,7 +8,7 @@ function BarberShopTeam({image, name}) {
             <div className="container-xxl py-5">
                 <div className="container">
                     <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
-                         style={{"max-width": "600px", "visibility": "visible", "animation-delay": "0.1s", "animation-name": "fadeInUp"}}>
+                         style={{maxWidth: "600px", visibility: "visible", animationDelay: "0.1s", animationName: "fadeInUp"}}>
                         <p className="d-inline-block bg-secondary text-primary py-1 px-4">Spotty Barbers</p>
                         <h1 className="text-uppercase">Meet Our Team</h1>
                     </div>

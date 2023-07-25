@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ImageUploader from "./ImageUploader";
 import {signUpAsBarber} from "../services/authService";
 import {updateBarberLogo} from "../services/barberShopService";
@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
 
 function BarberShopSignUpForm() {
+    let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(false);
@@ -36,13 +37,14 @@ function BarberShopSignUpForm() {
                 toast.success("Successfully Accessed");
                 localStorage.setItem("lookyBarberToken", `Bearer ${res.data.token}`);
                 const r = await updateBarberLogo(file);
-                console.log(r);
+                navigate('/sign-in');
             }
             console.log(data, file);
             setLoading(false);
         }else {
             toast.error("Logo is Missed");
             setLoading(false);
+
         }
     }
 

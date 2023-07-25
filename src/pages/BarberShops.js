@@ -4,8 +4,25 @@ import Carousel from "../components/Carousel";
 import BarberCard from "../components/BarberCard";
 import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
+import { fetchBarberShops } from "../services/barberShopService";
 
 function BarberShops() {
+    const [barbers, setBarbers] = React.useState([]);
+
+
+    React.useEffect( () => {
+        async function fetchData() {
+            const res = await fetchBarberShops();
+            if (res.name === 'AxiosError') {
+                console.log(res);
+            } else {
+                const {barberShops} = res.data;
+                setBarbers(barberShops);
+            }
+        }
+        fetchData().then();
+    },[])
+
     return (
         <React.Fragment>
             <NavBar/>
@@ -13,7 +30,7 @@ function BarberShops() {
             <div className="container-xxl py-5">
                 <div className="container">
                     <div className="text-center mx-auto mb-3 wow fadeInUp" data-wow-delay="0.1s"
-                         style={{"max-width": "600px"}}>
+                         style={{maxWidth: "600px"}}>
                         <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-12">
                             <div className="bg-secondary rounded p-4 p-sm-5 mx-3">
                                 <div className="position-relative mb-4">
@@ -29,10 +46,9 @@ function BarberShops() {
                         </div>
                     </div>
                     <div className="row g-4">
-                        <BarberCard image="barber1.png" name="Brass Knugkles"/>
-                        <BarberCard image="barber2.jpeg" name="Baylee"/>
-                        <BarberCard image="barber3.jpeg" name="Bayou Blades"/>
-                        <BarberCard image="barber4.jpeg" name="Pottsy"/>
+                        {
+                            barbers.map(b => <BarberCard key={b.id} barber={b}/>)
+                        }
                     </div>
                 </div>
             </div>

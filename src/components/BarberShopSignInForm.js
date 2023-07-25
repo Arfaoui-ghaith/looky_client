@@ -1,10 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {signInAsBarber} from "../services/authService";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
 
 function BarberShopSignInForm() {
+    let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(false);
@@ -30,6 +31,7 @@ function BarberShopSignInForm() {
             console.log(res);
         }else{
             toast.success("Successfully Accessed");
+            navigate('/');
         }
         setLoading(false);
     }

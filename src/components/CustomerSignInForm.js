@@ -1,11 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {signInAsCustomer} from '../services/authService';
 import toast, { Toaster } from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
 
 
 function CustomerSignInForm() {
+    let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(false);
@@ -32,6 +33,7 @@ function CustomerSignInForm() {
         }else{
             console.log(res);
             toast.success("Successfully Accessed");
+            navigate('/');
         }
         setLoading(false);
     }

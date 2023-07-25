@@ -6,13 +6,13 @@ function FeedBacks() {
             <div className="container-xxl py-5">
                 <div className="container">
                     <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
-                         style={{"max-width": "600px", "visibility": "visible", "animation-delay": "0.1s", "animation-name": "fadeInUp"}}>
+                         style={{maxWidth: "600px", visibility: "visible", animationDelay: "0.1s", animationName: "fadeInUp"}}>
                         <p className="d-inline-block bg-secondary text-primary py-1 px-4">Testimonial</p>
                         <h1 className="text-uppercase">What Our Clients Say!</h1>
                     </div>
                     <div className="owl-carousel testimonial-carousel wow fadeInUp owl-loaded owl-drag"
                          data-wow-delay="0.1s"
-                         style={{"visibility": "visible", "animation-delay": "0.1s", "animation-name": "fadeInUp"}}>
+                         style={{visibility: "visible", animationDelay: "0.1s", animationName: "fadeInUp"}}>
 
 
                         <div className="owl-stage-outer">
@@ -81,11 +81,11 @@ function FeedBacks() {
                             <div className="owl-next">next</div>
                         </div>
                         <div className="owl-dots">
-                            <div className="owl-dot active"><img className="img-fluid" src="img/testimonial-1.jpg"
+                            <div className="owl-dot active"><img className="img-fluid" src="/img/testimonial-1.jpg"
                                                                  alt=""/></div>
-                            <div className="owl-dot"><img className="img-fluid" src="img/testimonial-2.jpg" alt=""/>
+                            <div className="owl-dot"><img className="img-fluid" src="/img/testimonial-2.jpg" alt=""/>
                             </div>
-                            <div className="owl-dot"><img className="img-fluid" src="img/testimonial-3.jpg" alt=""/>
+                            <div className="owl-dot"><img className="img-fluid" src="/img/testimonial-3.jpg" alt=""/>
                             </div>
                         </div>
                     </div>

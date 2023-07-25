@@ -10,7 +10,7 @@ function Carousel() {
                             <img className="w-100" src="img/carousel-1.jpg" alt="Image"/>
                                 <div
                                     className="carousel-caption d-flex align-items-center justify-content-center text-start">
-                                    <div className="mx-sm-5 px-5" style={{"max-width": "900px"}}>
+                                    <div className="mx-sm-5 px-5" style={{maxWidth: "900px"}}>
                                         <h1 className="display-2 text-white text-uppercase mb-4 animated slideInDown">We
                                             Will Keep You An Awesome Look</h1>
                                         <button className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Get Started<i
@@ -22,7 +22,7 @@ function Carousel() {
                             <img className="w-100" src="img/carousel-2.jpg" alt="Image"/>
                                 <div
                                     className="carousel-caption d-flex align-items-center justify-content-center text-start">
-                                    <div className="mx-sm-5 px-5" style={{"max-width": "900px"}}>
+                                    <div className="mx-sm-5 px-5" style={{maxWidth: "900px"}}>
                                         <h1 className="display-2 text-white text-uppercase mb-4 animated slideInDown">Luxury
                                             Haircut at Affordable Price</h1>
                                         <button className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Get Started<i

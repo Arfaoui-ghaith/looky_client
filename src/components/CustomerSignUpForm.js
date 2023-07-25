@@ -1,11 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {signUpAsCustomer} from "../services/authService";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
 import { Calendar } from 'primereact/calendar';
 
 function CustomerSignUpForm() {
+    let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(false);
@@ -31,6 +32,7 @@ function CustomerSignUpForm() {
             console.log(res);
         }else{
             toast.success("Successfully Accessed");
+            navigate('/sign-in');
         }
         setLoading(false);
     }

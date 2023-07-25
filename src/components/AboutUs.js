@@ -1,6 +1,7 @@
 import React from "react";
 
-function AboutUs({image, name}) {
+function AboutUs({barber}) {
+
     return (
         <React.Fragment>
             <div className="container-xxl py-5">
@@ -8,9 +9,9 @@ function AboutUs({image, name}) {
                     <div className="row g-5">
                         <div className="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                             <div className="d-flex flex-column">
-                                <img className="img-fluid w-75 align-self-end" src="img/about.jpg" alt=""/>
-                                    <div className="w-50 bg-secondary p-5" style={{"margin-top": "-25%"}}>
-                                        <h1 className="text-uppercase text-primary mb-3">25 Years</h1>
+                                <img className="img-fluid w-75 align-self-end" src="/img/about.jpg" alt=""/>
+                                    <div className="w-50 bg-secondary p-5" style={{marginTop: "-25%"}}>
+                                        <h1 className="text-uppercase text-primary mb-3">{barber.name}</h1>
                                         <h2 className="text-uppercase mb-0">Experience</h2>
                                     </div>
                             </div>

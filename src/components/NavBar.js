@@ -1,9 +1,13 @@
 import React from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import CustomerAvatar from "./CustomerAvatar";
 
 function NavBar() {
     let navigate = useNavigate();
     let location = useLocation();
+    let [condition, setCondition] = React.useState(
+        localStorage.getItem("lookyCustomerToken") === null
+    );
 
     const goJoinUs = () => {
         navigate("/join-us");
@@ -26,21 +30,14 @@ function NavBar() {
                     <div className="navbar-nav ms-auto p-4 p-lg-0">
                         <Link to="/" className={location.pathname==="/" ? cssActive:cssInactive}>Home</Link>
                         <Link to="/barber-shops" className={location.pathname==="/barber-shops" ? cssActive:cssInactive}>Barbers</Link>
-                        <a href="service.html" className="nav-item nav-link">Service</a>
-                        <div className="nav-item dropdown">
-                            <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div className="dropdown-menu m-0">
-                                <a href="price.html" className="dropdown-item">Pricing Plan</a>
-                                <a href="team.html" className="dropdown-item">Our Barber</a>
-                                <a href="open.html" className="dropdown-item">Working Hours</a>
-                                <a href="testimonial.html" className="dropdown-item">Testimonial</a>
-                                <a href="404.html" className="dropdown-item">404 Page</a>
-                            </div>
-                        </div>
-                        <Link to="/sign-in" className="nav-item nav-link">Sign in</Link>
+                        {
+                            !condition ? <CustomerAvatar/> :
+                                <Link to="/sign-in" className="nav-item nav-link">Sign in</Link>
+                        }
                     </div>
                     <button onClick={() => goJoinUs()} className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Join us<i
                         className="fa fa-arrow-right ms-3"></i></button>
+
                 </div>
             </nav>
         </React.Fragment>
