@@ -1,7 +1,39 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {signInAsBarber} from "../services/authService";
+import toast from "react-hot-toast";
+import {BeatLoader} from "react-spinners";
 
 function BarberShopSignInForm() {
+
+    const [data, setData] = React.useState({});
+    const [loading, setLoading] = React.useState(false);
+
+
+    const change = (index,value) => {
+        if(value === ""){
+            let user = data;
+            delete user[index];
+            setData(user);
+        }else {
+            let user = {...data};
+            user[index] = value;
+            setData(user);
+        }
+    }
+
+    const signIn = async() => {
+        setLoading(true);
+        const res = await signInAsBarber(data);
+        if(res.name === 'AxiosError'){
+            toast.error(res.response.data.message);
+            console.log(res);
+        }else{
+            toast.success("Successfully Accessed");
+        }
+        setLoading(false);
+    }
+
     return (
         <React.Fragment>
             <div className="d-flex align-items-center justify-content-between mb-1">
@@ -12,12 +44,12 @@ function BarberShopSignInForm() {
             </div>
             <div className="form-floating mb-2">
                 <input type="email" className="form-control" id="floatingInput"
-                       placeholder="name@example.com"/>
+                       placeholder="name@example.com" onChange={(e)=>change("email",e.target.value)}/>
                 <label htmlFor="floatingInput">Email address</label>
             </div>
             <div className="form-floating mb-2">
                 <input type="password" className="form-control" id="floatingPassword"
-                       placeholder="Password"/>
+                       placeholder="Password" onChange={(e)=>change("password",e.target.value)}/>
                 <label htmlFor="floatingPassword">Password</label>
             </div>
             <div className="d-flex align-items-center justify-content-between mb-1">
@@ -27,7 +59,9 @@ function BarberShopSignInForm() {
                 </div>
                 <a href="">Forgot Password</a>
             </div>
-            <button type="submit" className="btn-primary py-3 w-100 mb-2">Sign In</button>
+            <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signIn()}>{
+                loading ? <BeatLoader color="#fff" size={10} /> : "Sign In"
+            }</button>
             <p className="text-center mb-0">Don't have an Account? <Link to="/sign-up/barber">Sign Up</Link></p>
         </React.Fragment>
     );

@@ -1,19 +1,33 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const customerInstance = axios.create({
     baseURL: 'https://looky-server.onrender.com/api/v1',
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('lookyToken')}`
+        "Authorization": `Bearer ${localStorage.getItem('lookyCustomerToken')}`
     }
 });
 
-const call = async (config) => {
+const barberInstance = axios.create({
+    baseURL: 'https://looky-server.onrender.com/api/v1',
+    headers: {
+        "Authorization": `Bearer ${localStorage.getItem('lookyBarberToken')}`
+    }
+});
+
+export const callForCustomer = async (config) => {
     try {
-        let res = await instance(config);
+        let res = await customerInstance(config);
         return res;
     }catch (err){
         return err;
     }
 }
 
-export default call;
+export const callForBarber = async (config) => {
+    try {
+        let res = await barberInstance(config);
+        return res;
+    }catch (err){
+        return err;
+    }
+}

@@ -1,8 +1,8 @@
-import { call } from '../utils/httpCall';
+import { callForBarber } from '../utils/httpCall';
 
-const fetchBarberShops = async () => {
+export const fetchBarberShops = async () => {
     try{
-        const res = await call({
+        const res = await callForBarber({
             url: '/barberShops',
             method: 'get'
         });
@@ -12,7 +12,15 @@ const fetchBarberShops = async () => {
     }
 }
 
-
-module.exports = {
-    fetchBarberShops
+export const updateBarberLogo = async (formData) => {
+    const res = await callForBarber({
+        url: '/barberShops/infos',
+        method: 'patch',
+        data: formData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `${localStorage.getItem('lookyBarberToken')}`
+        }
+    });
+    return res;
 }

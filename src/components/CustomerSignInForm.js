@@ -30,6 +30,7 @@ function CustomerSignInForm() {
             toast.error(res.response.data.message);
             console.log(res);
         }else{
+            console.log(res);
             toast.success("Successfully Accessed");
         }
         setLoading(false);
