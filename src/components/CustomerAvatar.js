@@ -1,17 +1,21 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
-function CustomerAvatar() {
+function CustomerAvatar({barber}) {
+    const navigate = useNavigate();
+
+    const logout = ()=> {
+        console.log("hi")
+        localStorage.removeItem("lookyCustomerToken");
+        navigate("/sign-in");
+    }
     return (
         <React.Fragment>
             <div className="nav-item dropdown">
-                <a href="#" className="nav-link dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
-                        <span className="d-none d-lg-inline-flex">John Doe</span>
-                </a>
-                <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0 show"
-                     data-bs-popper="none">
-                    <a href="#" className="dropdown-item">My Profile</a>
-                    <a href="#" className="dropdown-item">Settings</a>
-                    <span href="#" className="dropdown-item" onClick={() => localStorage.removeItem("lookyCustomerToken")}>Log Out</span>
+                <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Profile</a>
+                <div className="dropdown-menu m-0">
+                    <a href="" className="dropdown-item">Settings</a>
+                    <span style={{cursor: "pointer"}} onClick={() => logout()} className="dropdown-item">Log Out</span>
                 </div>
             </div>
         </React.Fragment>

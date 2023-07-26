@@ -3,6 +3,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {signInAsCustomer} from '../services/authService';
 import toast from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from 'react-social-login-buttons';
 
 
 function CustomerSignInForm() {
@@ -39,6 +41,7 @@ function CustomerSignInForm() {
         setLoading(false);
     }
 
+    console.log(process.env.REACT_APP_FB_APP_ID);
 
     return (
         <React.Fragment>
@@ -70,9 +73,15 @@ function CustomerSignInForm() {
                 }</button>
                 <div className="separator">OR</div>
                 <div className="d-flex justify-content-center pt-1 m-n1 ">
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-twitter"></i></a>
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i className="fab fa-facebook-f"></i></a>
+                    <LoginSocialFacebook
+                        appId={process.env.REACT_APP_FB_APP_ID || ''}
+                        onResolve={(res)=>console.log(res)}
+                        onReject={(err) => console.log(err)}
+                    >
+                    <button className="btn btn-lg-square btn-dark text-primary m-1" ><i
+                        className="fab fa-facebook-f"></i></button>
+                    </LoginSocialFacebook>
+                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i className="fab fa-twitter"></i></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
                         className="fab fa-google"></i></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
