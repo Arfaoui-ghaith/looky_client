@@ -3,8 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {signInAsCustomer} from '../services/authService';
 import toast from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
-import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from 'react-social-login-buttons';
+import { LoginSocialFacebook, LoginSocialGoogle, LoginSocialInstagram } from "reactjs-social-login";
 
 
 function CustomerSignInForm() {
@@ -77,15 +76,33 @@ function CustomerSignInForm() {
                         appId={process.env.REACT_APP_FB_APP_ID || ''}
                         onResolve={(res)=>console.log(res)}
                         onReject={(err) => console.log(err)}
+                        fieldsProfile={
+                            'email'
+                        }
                     >
                     <button className="btn btn-lg-square btn-dark text-primary m-1" ><i
                         className="fab fa-facebook-f"></i></button>
                     </LoginSocialFacebook>
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i className="fab fa-twitter"></i></a>
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-google"></i></a>
-                    <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-linkedin-in"></i></a>
+                    <LoginSocialGoogle
+                        client_id={process.env.REACT_APP_GG_APP_ID || ''}
+                        scope="openid profile email"
+                        discoveryDocs="claims_supported"
+                        access_type="offline"
+                        onResolve={(res)=>console.log(res)}
+                        onReject={(err) => console.log(err)}
+                    >
+                        <button className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
+                            className="fab fa-google"></i></button>
+                    </LoginSocialGoogle>
+                    <LoginSocialInstagram
+                        client_id={process.env.REACT_APP_INSTAGRAM_APP_ID || ''}
+                        client_secret={process.env.REACT_APP_INSTAGRAM_APP_SECRET || ''}
+                        redirect_uri={''}
+                        onResolve={(res)=>console.log(res)}
+                        onReject={(err) => console.log(err)}>
+                    <button className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
+                        className="fab fa-instagram"></i></button>
+                    </LoginSocialInstagram>
                 </div>
                 <p className="text-center mb-0">Don't have an Account? <Link to="/sign-up/customer">Sign Up</Link></p>
 
