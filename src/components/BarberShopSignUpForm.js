@@ -35,7 +35,7 @@ function BarberShopSignUpForm() {
                 console.log(res);
             } else {
                 toast.success("Successfully Accessed");
-                localStorage.setItem("lookyBarberToken", `Bearer ${res.data.token}`);
+
                 const r = await updateBarberLogo(file);
                 navigate('/sign-in');
             }

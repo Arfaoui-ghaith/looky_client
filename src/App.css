@@ -4312,8 +4312,8 @@
 }
 .p-dialog .p-dialog-header {
     border-bottom: 0 none;
-    background: #ffffff;
-    color: #343a40;
+    background: #191C24;
+    color: #fff;
     padding: 1.5rem;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -4325,28 +4325,23 @@
 .p-dialog .p-dialog-header .p-dialog-header-icon {
     width: 2rem;
     height: 2rem;
-    color: #6c757d;
-    border: 0 none;
+    color: #EB1616;
+    border: none;
     background: transparent;
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
     margin-right: 0.5rem;
 }
 .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
-    color: #343a40;
-    border-color: transparent;
-    background: #e9ecef;
+    color: #fff;
+    background: #EB1616;
 }
-.p-dialog .p-dialog-header .p-dialog-header-icon:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #C7D2FE;
-}
+
 .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
     margin-right: 0;
 }
 .p-dialog .p-dialog-content {
-    background: #ffffff;
+    background: #191C24;
     color: #495057;
     padding: 0 1.5rem 2rem 1.5rem;
 }
@@ -4356,7 +4351,7 @@
 }
 .p-dialog .p-dialog-footer {
     border-top: 0 none;
-    background: #ffffff;
+    background: #191C24;
     color: #495057;
     padding: 0 1.5rem 1.5rem 1.5rem;
     text-align: right;

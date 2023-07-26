@@ -1,7 +1,7 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {signInAsCustomer} from '../services/authService';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
 
 
@@ -33,6 +33,7 @@ function CustomerSignInForm() {
         }else{
             console.log(res);
             toast.success("Successfully Accessed");
+            localStorage.setItem("lookyCustomerToken", `${res.data.token}`);
             navigate('/');
         }
         setLoading(false);

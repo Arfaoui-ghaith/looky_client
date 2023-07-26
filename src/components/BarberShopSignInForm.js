@@ -31,6 +31,7 @@ function BarberShopSignInForm() {
             console.log(res);
         }else{
             toast.success("Successfully Accessed");
+            localStorage.setItem("lookyBarberToken", `${res.data.token}`);
             navigate('/');
         }
         setLoading(false);

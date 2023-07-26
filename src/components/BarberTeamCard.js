@@ -5,7 +5,7 @@ function BarberTeamCard({image, name}) {
     return (
         <React.Fragment>
             <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s"
-                 style={{"visibility": "visible", "animation-delay": "0.1s", "animation-name": "fadeInUp"}}>
+                 style={{"visibility": "visible", "animationDelay": "0.1s", "animationName": "fadeInUp"}}>
                 <div className="team-item">
                     <div className="team-img position-relative overflow-hidden">
                         <img className="img-fluid" src="/img/team-1.jpg" alt=""/>

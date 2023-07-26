@@ -3,14 +3,14 @@ import axios from 'axios';
 const customerInstance = axios.create({
     baseURL: 'https://looky-server.onrender.com/api/v1',
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('lookyCustomerToken')}`
+        "Authorization": `${localStorage.getItem('lookyCustomerToken')}`
     }
 });
 
 const barberInstance = axios.create({
     baseURL: 'https://looky-server.onrender.com/api/v1',
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('lookyBarberToken')}`
+        "Authorization": `${localStorage.getItem('lookyBarberToken')}`
     }
 });
 

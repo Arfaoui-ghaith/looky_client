@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import Carousel from "../components/Carousel";
 import BarberCard from "../components/BarberCard";
@@ -8,11 +8,12 @@ import AboutUs from "../components/AboutUs";
 import FeedBacks from "../components/FeedBacks";
 import BarberShopTeam from "../components/BarberShopTeam";
 import BarberServices from "../components/BarberServices";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {fetchBarberInfos} from "../services/barberShopService";
+import BookAppointment from "../components/BookAppointment";
 
 function BarberShops() {
-
+    const [visible, setVisible] = useState(false);
     const [barber, setBarber] = React.useState();
 
     const {id} = useParams();
@@ -29,7 +30,17 @@ function BarberShops() {
             }
         }
         fetchData().then();
-    },[])
+    },[]);
+
+    const navigate = useNavigate();
+
+    const openBookAppointment = () => {
+        if(localStorage.getItem("lookyCustomerToken") === null){
+            navigate("/sign-in");
+        }else{
+            setVisible(!visible)
+        }
+    }
 
 
     return (
@@ -39,11 +50,14 @@ function BarberShops() {
                 <div className="container text-center py-5">
                     <h1 className="display-3 text-white text-uppercase mb-3 animated slideInDown">{barber ? barber.name : ""}</h1>
                     <nav aria-label="breadcrumb animated slideInDown">
-                        <div className="breadcrumb justify-content-center text-uppercase mb-0">
-                            <button
-                               className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Appointment<i
-                                className="fa fa-arrow-right ms-3"></i></button>
-                        </div>
+                        { barber !== undefined ?
+                            <div className="breadcrumb justify-content-center text-uppercase mb-0">
+                                <button
+                                   className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block" onClick={() => openBookAppointment()}>Appointment<i
+                                    className="fa fa-arrow-right ms-3"></i></button>
+                                <BookAppointment barber={barber} onChange={visible=>setVisible(visible)} visible={visible}/>
+                            </div> : ""
+                        }
                     </nav>
                 </div>
             </div>
