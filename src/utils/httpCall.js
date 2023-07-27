@@ -16,6 +16,7 @@ const barberInstance = axios.create({
 });
 
 export const callForCustomer = async (config) => {
+    console.log("hi",`${localStorage.getItem('lookyBarberToken')}`)
     try {
         let res = await customerInstance(config);
         return res;

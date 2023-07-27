@@ -34,6 +34,7 @@ function CustomerSignInForm() {
         }else{
             console.log(res);
             toast.success("Successfully Accessed");
+            console.log(localStorage.getItem("lookyCustomerToken"),`${res.data.token}`);
             localStorage.setItem("lookyCustomerToken", `${res.data.token}`);
             navigate('/');
         }

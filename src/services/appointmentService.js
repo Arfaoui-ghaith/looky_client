@@ -4,7 +4,7 @@ export const bookAppointment = async (data) => {
     const res = await callForCustomer({
         url: '/appointments/',
         method: 'post',
-        data
+        data: data
     });
     return res;
 }
