@@ -16,14 +16,14 @@ export const fetchBarberInfos = async (id) => {
     return res;
 }
 
-export const updateBarberLogo = async (formData) => {
+export const updateBarberLogo = async (formData,token) => {
     const res = await callForBarber({
         url: '/barberShops/infos',
         method: 'patch',
         data: formData,
         headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `${localStorage.getItem('lookyBarberToken')}`
+            "Authorization": `Bearer ${token}`
         }
     });
     return res;

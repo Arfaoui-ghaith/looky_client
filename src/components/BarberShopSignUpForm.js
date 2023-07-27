@@ -34,9 +34,8 @@ function BarberShopSignUpForm() {
                 toast.error(res.response.data.message);
                 console.log(res);
             } else {
+                const r = await updateBarberLogo(file,res.data.token);
                 toast.success("Successfully Accessed");
-
-                const r = await updateBarberLogo(file);
                 navigate('/sign-in');
             }
             console.log(data, file);
