@@ -9,6 +9,15 @@ export const signInAsCustomer = async (data) => {
     return res;
 }
 
+export const signInAsCustomerBySocialNetwork = async (data) => {
+    const res = await callForCustomer({
+        url: '/customers/signin',
+        method: 'patch',
+        data
+    });
+    return res;
+}
+
 export const signUpAsCustomer = async (data) => {
     const res = await callForCustomer({
         url: '/customers/signup',

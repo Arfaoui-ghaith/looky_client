@@ -8,7 +8,7 @@ import { Calendar } from 'primereact/calendar';
 function CustomerSignUpForm() {
     let navigate = useNavigate();
 
-    const [data, setData] = React.useState({});
+    const [data, setData] = React.useState({gender: "Male"});
     const [loading, setLoading] = React.useState(false);
 
 
@@ -77,25 +77,7 @@ function CustomerSignUpForm() {
                 <div className="form-floating mb-3">
                     <Calendar placeholder="Birth Date" style={calendarStyle} value={data.birthDate} onChange={(e) => change("birthDate",e.target.value)} showIcon />
                 </div>
-                <fieldset className="row mb-3">
-                    <legend className="col-form-label col-sm-2 pt-0">Gender</legend>
-                    <div className="col-sm-10">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios"
-                                   id="gridRadios1" value="Male" onChange={(e)=>change("gender",e.target.value)}/>
-                            <label className="form-check-label" htmlFor="gridRadios1">
-                                Male
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios"
-                                   id="gridRadios2" value="Female" onChange={(e)=>change("gender",e.target.value)}/>
-                            <label className="form-check-label" htmlFor="gridRadios2">
-                                Female
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
+
                 <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signUp()}>{
                     loading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"
                 }</button>

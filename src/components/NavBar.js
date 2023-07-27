@@ -35,9 +35,10 @@ function NavBar() {
                                 <Link to="/sign-in" className="nav-item nav-link">Sign in</Link>
                         }
                     </div>
-                    <button onClick={() => goJoinUs()} className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Join us<i
-                        className="fa fa-arrow-right ms-3"></i></button>
-
+                    {
+                        !condition ? "" : <button onClick={() => goJoinUs()} className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Join us<i
+                            className="fa fa-arrow-right ms-3"></i></button>
+                    }
                 </div>
             </nav>
         </React.Fragment>

@@ -1,6 +1,6 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {signInAsCustomer} from '../services/authService';
+import {signInAsCustomer, signInAsCustomerBySocialNetwork} from '../services/authService';
 import toast from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
 import { LoginSocialFacebook, LoginSocialGoogle, LoginSocialInstagram } from "reactjs-social-login";
@@ -28,6 +28,21 @@ function CustomerSignInForm() {
     const signIn = async() => {
         setLoading(true);
         const res = await signInAsCustomer(data);
+        if(res.name === 'AxiosError'){
+            toast.error(res.response.data.message);
+            console.log(res);
+        }else{
+            console.log(res);
+            toast.success("Successfully Accessed");
+            localStorage.setItem("lookyCustomerToken", `${res.data.token}`);
+            navigate('/');
+        }
+        setLoading(false);
+    }
+
+    const signInBySocialNetwork = async(d) => {
+        setLoading(true);
+        const res = await signInAsCustomerBySocialNetwork(d);
         if(res.name === 'AxiosError'){
             toast.error(res.response.data.message);
             console.log(res);
@@ -74,11 +89,8 @@ function CustomerSignInForm() {
                 <div className="d-flex justify-content-center pt-1 m-n1 ">
                     <LoginSocialFacebook
                         appId={process.env.REACT_APP_FB_APP_ID || ''}
-                        onResolve={(res)=>console.log(res)}
-                        onReject={(err) => console.log(err)}
-                        fieldsProfile={
-                            'email'
-                        }
+                        onResolve={(res)=>signInBySocialNetwork({email: res.data.email})}
+                        onReject={(err) => toast.error("Try Again Later")}
                     >
                     <button className="btn btn-lg-square btn-dark text-primary m-1" ><i
                         className="fab fa-facebook-f"></i></button>
@@ -88,19 +100,19 @@ function CustomerSignInForm() {
                         scope="openid profile email"
                         discoveryDocs="claims_supported"
                         access_type="offline"
-                        onResolve={(res)=>console.log(res)}
-                        onReject={(err) => console.log(err)}
+                        onResolve={(res)=>signInBySocialNetwork({email: res.data.email})}
+                        onReject={(err) => toast.error("Try Again Later")}
                     >
-                        <button className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
+                        <button className="btn btn-lg-square btn-dark text-primary m-1"><i
                             className="fab fa-google"></i></button>
                     </LoginSocialGoogle>
                     <LoginSocialInstagram
                         client_id={process.env.REACT_APP_INSTAGRAM_APP_ID || ''}
                         client_secret={process.env.REACT_APP_INSTAGRAM_APP_SECRET || ''}
                         redirect_uri={''}
-                        onResolve={(res)=>console.log(res)}
-                        onReject={(err) => console.log(err)}>
-                    <button className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
+                        onResolve={(res)=>signInBySocialNetwork({email: res.data.email})}
+                        onReject={(err) => toast.error("Try Again Later")}>
+                    <button className="btn btn-lg-square btn-dark text-primary m-1"><i
                         className="fab fa-instagram"></i></button>
                     </LoginSocialInstagram>
                 </div>
