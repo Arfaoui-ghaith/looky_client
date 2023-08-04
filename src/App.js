@@ -13,6 +13,7 @@ import {Toaster} from "react-hot-toast";
 import { PrimeReactProvider } from 'primereact/api';
 import "./App.css";
 import "primereact/resources/primereact.min.css";
+import NotFound from "./pages/404";
 
 
 
@@ -29,6 +30,7 @@ function App() {
                 <Route exact path='/sign-in' element={<SignIn/>}/>
                 <Route exact path='/sign-up/customer' element={<CustomerSignUp/>}/>
                 <Route exact path='/sign-up/barber' element={<BarberShopSignUp/>}/>
+                <Route exact path='*' element={<NotFound/>}/>
             </Routes>
         </Router>
     </PrimeReactProvider>
