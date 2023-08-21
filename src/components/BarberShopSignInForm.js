@@ -3,6 +3,9 @@ import {Link, useNavigate} from "react-router-dom";
 import {signInAsBarber} from "../services/authService";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
+import { useDispatch } from "react-redux";
+import { useLoginMutation } from "../redux/slices/barberApiSlice";
+import { setCredentials } from "../redux/slices/auth";
 
 function BarberShopSignInForm() {
     let navigate = useNavigate();
@@ -10,6 +13,8 @@ function BarberShopSignInForm() {
     const [data, setData] = React.useState({});
     const [loading, setLoading] = React.useState(false);
 
+    const dispatch = useDispatch();
+    const [login, { isLoading, error }] = useLoginMutation();
 
     const change = (index,value) => {
         if(value === ""){
@@ -23,6 +28,19 @@ function BarberShopSignInForm() {
         }
     }
 
+    const submitSignIn  = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await login(data).unwrap();
+            dispatch(setCredentials({...res}));
+            toast.success("Successfully Accessed");
+            navigate('/');
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
+        }
+    }
+    
     const signIn = async() => {
         setLoading(true);
         const res = await signInAsBarber(data);
@@ -62,8 +80,8 @@ function BarberShopSignInForm() {
                 </div>
                 <a href="">Forgot Password</a>
             </div>
-            <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signIn()}>{
-                loading ? <BeatLoader color="#fff" size={10} /> : "Sign In"
+            <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={(e)=>submitSignIn(e)}>{
+                isLoading ? <BeatLoader color="#fff" size={10} /> : "Sign In"
             }</button>
             <p className="text-center mb-0">Don't have an Account? <Link to="/sign-up/barber">Sign Up</Link></p>
         </React.Fragment>
