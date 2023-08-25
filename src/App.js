@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import './App.css';
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import JoinUs from "./pages/JoinUs";
@@ -12,12 +11,16 @@ import {Toaster} from "react-hot-toast";
 import { PrimeReactProvider } from 'primereact/api';
 import "./App.css";
 import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import NotFound from "./pages/404";
 import BarberAppointments from "./pages/BarberAppointments";
 import {NextUIProvider} from "@nextui-org/react";
 import ShopAppointments from "./pages/ShopAppointments";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import RoutesGuard from "./utils/guard";
+import Forbidden from "./pages/403";
+import BarberTeam from "./pages/BarberTeam";
 function App() {
   return (
       <Provider store={store}>
@@ -27,7 +30,12 @@ function App() {
                     <Toaster />
                     <Routes>
                         <Route exact path='/' element={<Home/>}/>
-                        <Route exact path='/barber-shop/appointments' element={<ShopAppointments/>}/>
+                        <Route exact path='/barber-shop/appointments' element={<RoutesGuard authenticatedFor='barber'/>}>
+                            <Route exact path='/barber-shop/appointments' element={<ShopAppointments/>}/>
+                        </Route>
+                        <Route exact path='/barber-shop/team' element={<RoutesGuard authenticatedFor='barber'/>}>
+                            <Route exact path='/barber-shop/team' element={<BarberTeam/>}/>
+                        </Route>
                         <Route exact path='/join-us' element={<JoinUs/>}/>
                         <Route exact path='/barber-shops' element={<BarberShops/>}/>
                         <Route exact path='/barber-shops/:id' element={<BarberShopPage/>}/>

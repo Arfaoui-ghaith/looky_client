@@ -69,7 +69,7 @@
 }
 
 button {
-
+    border: 1px solid #fff;
     background: #ff445c;
     color: #fff;
     font-size: 12px;

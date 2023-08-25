@@ -11,7 +11,6 @@ function BarberShopSignInForm() {
     let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
-    const [loading, setLoading] = React.useState(false);
 
     const dispatch = useDispatch();
     const [login, { isLoading, error }] = useLoginMutation();
@@ -39,20 +38,6 @@ function BarberShopSignInForm() {
             toast.error(err?.data?.message);
             console.error(err);
         }
-    }
-    
-    const signIn = async() => {
-        setLoading(true);
-        const res = await signInAsBarber(data);
-        if(res.name === 'AxiosError'){
-            toast.error(res.response.data.message);
-            console.log(res);
-        }else{
-            toast.success("Successfully Accessed");
-            localStorage.setItem("lookyBarberToken", `${res.data.token}`);
-            navigate('/');
-        }
-        setLoading(false);
     }
 
     return (

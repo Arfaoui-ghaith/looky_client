@@ -4,11 +4,11 @@ import NavBar from "../components/NavBar";
 import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
 
-function NotFound() {
+function Forbidden() {
     return (
         <React.Fragment>
             <NavBar/>
-            <PageHeader title={"404 ERROR"} />
+            <PageHeader title={"403 ERROR"} />
             <div
                 className="container-xxl py-5 wow fadeInUp"
                 data-wow-delay="0.1s"
@@ -22,10 +22,10 @@ function NotFound() {
                     <div className="row justify-content-center">
                         <div className="col-lg-6">
                             <i className="bi bi-exclamation-triangle display-1 text-primary" />
-                            <h1 className="display-1">404</h1>
-                            <h1 className="mb-4">Page Not Found</h1>
+                            <h1 className="display-1">403</h1>
+                            <h1 className="mb-4">Page Need Permission</h1>
                             <p className="mb-4">
-                                We’re sorry, the page you have looked for does not exist in our
+                                We’re sorry, the page you have looked for need permission in our
                                 website! Maybe go to our home page or try again later?
                             </p>
                             <Link className="btn btn-primary py-3 px-5" to="/">
@@ -40,4 +40,4 @@ function NotFound() {
     );
 }
 
-export default NotFound;
+export default Forbidden;

@@ -23,7 +23,16 @@ function ImageUploader({onChange}) {
             <div className="avatar-upload">
                 <div className="avatar-edit">
                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" onChange={(e)=>imageHandler(e)}/>
-                    <label htmlFor="imageUpload"></label>
+                    <label htmlFor="imageUpload"><i className="fa fa-pen" style={{
+                        fontFamily: "Font Awesome 5 Free",
+                        color: "#EB1616",
+                        position: "absolute",
+                        top: "10px",
+                        left: "0",
+                        right: "0",
+                        textAlign: "center",
+                        margin: "auto"
+                    }}></i></label>
                 </div>
                 <div className="avatar-preview">
                     <div id="imagePreview" style={{backgroundImage: `url(${image})`}}>

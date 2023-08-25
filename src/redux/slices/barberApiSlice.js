@@ -10,8 +10,17 @@ export const barbersApiSlice = apiSlice.injectEndpoints({
                 method: 'post',
                 body: data
             })
+        }),
+        infos: builder.query({
+            query: (data) => ({
+                url: `${BARVERS_URL}/infos`,
+                method: 'get',
+                headers: {
+                    'Authorization': data.token,
+                }
+            })
         })
     })
 });
 
-export const { useLoginMutation } = barbersApiSlice;
+export const { useLoginMutation, useInfosQuery } = barbersApiSlice;

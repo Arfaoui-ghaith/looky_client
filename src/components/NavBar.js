@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import CustomerAvatar from "./CustomerAvatar";
+import { useSelector } from "react-redux";
 
 function NavBar() {
     let navigate = useNavigate();
