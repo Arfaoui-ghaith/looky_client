@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Table,
     TableHeader,
@@ -22,6 +22,8 @@ import {SearchIcon} from "./icons/SearchIcon";
 import {ChevronDownIcon} from "./icons/ChevronDownIcon";
 import {columns, statusOptions} from "./data/data";
 import {capitalize} from "./utils";
+import AddTeamMember from "./AddTeamMember";
+import AddService from "./AddService";
 
 const statusColorMap = {
     confirmed: "success",
@@ -31,10 +33,10 @@ const statusColorMap = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "actions"];
 
-export default function AppointmentsTable({isLoading, appointments}) {
+export default function ServicesTable({isLoading, appointments}) {
 
-    console.log(appointments)
-    
+    const [visible, setVisible] = useState(false);
+
     const [filterValue, setFilterValue] = React.useState("");
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
     const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -228,7 +230,7 @@ export default function AppointmentsTable({isLoading, appointments}) {
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        <Button color="primary" endContent={<PlusIcon />}>
+                        <Button color="primary" onClick={() => setVisible(!visible)} endContent={<PlusIcon />}>
                             Add New
                         </Button>
                     </div>
@@ -290,43 +292,44 @@ export default function AppointmentsTable({isLoading, appointments}) {
 
     return (
         <div className="m-5" >
-        <Table
-            color=""
-            aria-label="Example table with custom cells, pagination and sorting"
-            isHeaderSticky
-            bottomContent={bottomContent}
-            bottomContentPlacement="outside"
-            classNames={{
-                wrapper: "max-h-[382px]",
-            }}
-            selectedKeys={selectedKeys}
-            selectionMode="multiple"
-            sortDescriptor={sortDescriptor}
-            topContent={topContent}
-            topContentPlacement="outside"
-            onSelectionChange={setSelectedKeys}
-            onSortChange={setSortDescriptor}
-            isLoading={isLoading}
-        >
-            <TableHeader columns={headerColumns}>
-                {(column) => (
-                    <TableColumn
-                        key={column.uid}
-                        align={column.uid === "actions" ? "center" : "start"}
-                        allowsSorting={column.sortable}
-                    >
-                        {column.name}
-                    </TableColumn>
-                )}
-            </TableHeader>
-            <TableBody emptyContent={"No appointments found"} items={sortedItems}>
-                {(item) => (
-                    <TableRow key={item.id}>
-                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+            <Table
+                color=""
+                aria-label="Example table with custom cells, pagination and sorting"
+                isHeaderSticky
+                bottomContent={bottomContent}
+                bottomContentPlacement="outside"
+                classNames={{
+                    wrapper: "max-h-[382px]",
+                }}
+                selectedKeys={selectedKeys}
+                selectionMode="multiple"
+                sortDescriptor={sortDescriptor}
+                topContent={topContent}
+                topContentPlacement="outside"
+                onSelectionChange={setSelectedKeys}
+                onSortChange={setSortDescriptor}
+                isLoading={isLoading}
+            >
+                <TableHeader columns={headerColumns}>
+                    {(column) => (
+                        <TableColumn
+                            key={column.uid}
+                            align={column.uid === "actions" ? "center" : "start"}
+                            allowsSorting={column.sortable}
+                        >
+                            {column.name}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody emptyContent={"No appointments found"} items={sortedItems}>
+                    {(item) => (
+                        <TableRow key={item.id}>
+                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+            <AddService onChange={visible=>setVisible(visible)} visible={visible}/>
         </div>
     );
 }

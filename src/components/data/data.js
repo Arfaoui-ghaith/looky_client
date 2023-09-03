@@ -11,9 +11,9 @@ const columns = [
 ];
 
 const statusOptions = [
-    {name: "Confirmed", uid: "active"},
-    {name: "Waiting", uid: "paused"},
-    {name: "Vacation", uid: "vacation"},
+    {name: "confirmed", uid: "confirmed"},
+    {name: "refused", uid: "refused"},
+    {name: "waiting", uid: "waiting"},
 ];
 
 const users = [

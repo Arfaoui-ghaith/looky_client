@@ -15,12 +15,13 @@ import "primeicons/primeicons.css";
 import NotFound from "./pages/404";
 import BarberAppointments from "./pages/BarberAppointments";
 import {NextUIProvider} from "@nextui-org/react";
-import ShopAppointments from "./pages/ShopAppointments";
+import BarberShopAppointments from "./pages/BarberShopAppointments";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import RoutesGuard from "./utils/guard";
 import Forbidden from "./pages/403";
 import BarberTeam from "./pages/BarberTeam";
+import BarberShopServices from "./pages/BarberShopServices";
 function App() {
   return (
       <Provider store={store}>
@@ -31,10 +32,13 @@ function App() {
                     <Routes>
                         <Route exact path='/' element={<Home/>}/>
                         <Route exact path='/barber-shop/appointments' element={<RoutesGuard authenticatedFor='barber'/>}>
-                            <Route exact path='/barber-shop/appointments' element={<ShopAppointments/>}/>
+                            <Route exact path='/barber-shop/appointments' element={<BarberShopAppointments/>}/>
                         </Route>
                         <Route exact path='/barber-shop/team' element={<RoutesGuard authenticatedFor='barber'/>}>
                             <Route exact path='/barber-shop/team' element={<BarberTeam/>}/>
+                        </Route>
+                        <Route exact path='/barber-shop/services' element={<RoutesGuard authenticatedFor='barber'/>}>
+                            <Route exact path='/barber-shop/services' element={<BarberShopServices/>}/>
                         </Route>
                         <Route exact path='/join-us' element={<JoinUs/>}/>
                         <Route exact path='/barber-shops' element={<BarberShops/>}/>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
@@ -6,27 +6,32 @@ import AppointmentsTable from "../components/AppointmentsTable";
 import { useSelector } from "react-redux";
 import { useAppointmentsQuery } from "../redux/slices/appointmentsApiSlice";
 
-function ShopAppointments() {
+function BarberShopAppointments() {
 
     let { userInfo } = useSelector(state => state.auth);
+    const [appointments, setAppointments] = useState([]);
 
-    let {data: {appointment}, isLoading, error } = useAppointmentsQuery({token: userInfo.token});
+    let {data: res, isLoading, error } = useAppointmentsQuery({token: userInfo.token});
 
     React.useEffect(() => {
-        console.log(appointment)
-    },[appointment]);
+        if(res){
+            setAppointments(res.appointment)
+        }
+    },[res]);
 
     const formatingAppointments = (appointment) => {
+        console.log(appointment)
         if(appointment !== undefined) {
             return appointment.map(ap => {
+                const date = new Date(ap.date)
                 return {
                     id: ap.id,
                     name: `${ap.customer?.firstName} ${ap.customer?.lastName}`,
-                    date: ap.date,
+                    date,
                     service: ap.service.title,
-                    status: ap.confirmed ? "active" : "paused",
-                    price: ap.service.price,
-                    avatar: ap.customer.image,
+                    status: ap.status,
+                    price: `${ap.service.price} DT`,
+                    avatar: ap.customer.image ? ap.customer.image : '/img/hairstyle.png',
                     email: ap.customer.email,
                 }
             })
@@ -39,11 +44,11 @@ function ShopAppointments() {
             <NavBar/>
             <PageHeader title="Appointments"/>
 
-            <AppointmentsTable isLoading={isLoading} appointments={formatingAppointments(appointment)} />
+            <AppointmentsTable isLoading={isLoading} appointments={formatingAppointments(appointments)} />
 
             <Footer/>
         </React.Fragment>
     );
 }
 
-export default ShopAppointments;
+export default BarberShopAppointments;

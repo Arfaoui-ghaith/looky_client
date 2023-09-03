@@ -32,6 +32,7 @@ function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarCollapse">
                     <div className="navbar-nav ms-auto p-4 p-lg-0">
                         <Link to="/" className={location.pathname==="/" ? cssActive:cssInactive}>Home</Link>
+                        <Link to="/barber-shop/services" className={location.pathname==="/barber-shop/services" ? cssActive:cssInactive}>Services</Link>
                         <Link to="/barber-shop/appointments" className={location.pathname==="/barber-shop/appointments" ? cssActive:cssInactive}>Appointments</Link>
                         <Link to="/barber-shop/team" className={location.pathname==="/barber-shop/team" ? cssActive:cssInactive}>Team</Link>
                         <span style={{ cursor: 'pointer' }} onClick={() => logoutSubmit()} className="nav-item nav-link">Sign out</span>
