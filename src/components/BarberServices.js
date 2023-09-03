@@ -14,7 +14,7 @@ function BarberServices({services}) {
                                 <div>
                                     {
                                         services.map(service => (
-                                            <div className="d-flex justify-content-between border-bottom py-2">
+                                            <div key={service.id} className="d-flex justify-content-between border-bottom py-2">
                                                 <h6 className="text-uppercase mb-0">{service.title}</h6>
                                                 <span className="text-uppercase text-primary">{service.price} TND</span>
                                             </div>

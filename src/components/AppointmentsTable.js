@@ -20,7 +20,7 @@ import {PlusIcon} from "./icons/PlusIcon";
 import {VerticalDotsIcon} from "./icons/VerticalDotsIcon";
 import {SearchIcon} from "./icons/SearchIcon";
 import {ChevronDownIcon} from "./icons/ChevronDownIcon";
-import {columns, users, statusOptions} from "./data/data";
+import {columns, statusOptions} from "./data/data";
 import {capitalize} from "./utils";
 
 const statusColorMap = {
@@ -29,17 +29,20 @@ const statusColorMap = {
     vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "actions"];
 
-export default function AppointmentsTable() {
+export default function AppointmentsTable({isLoading, appointments}) {
+
+
+    
     const [filterValue, setFilterValue] = React.useState("");
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
     const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
     const [statusFilter, setStatusFilter] = React.useState("all");
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [sortDescriptor, setSortDescriptor] = React.useState({
-        column: "age",
-        direction: "ascending",
+        column: "date",
+        direction: "descending",
     });
     const [page, setPage] = React.useState(1);
 
@@ -52,21 +55,23 @@ export default function AppointmentsTable() {
     }, [visibleColumns]);
 
     const filteredItems = React.useMemo(() => {
-        let filteredUsers = [...users];
+        let filteredAppointments = [...appointments];
 
         if (hasSearchFilter) {
-            filteredUsers = filteredUsers.filter((user) =>
-                user.name.toLowerCase().includes(filterValue.toLowerCase()),
+            filteredAppointments = filteredAppointments.filter((appointment) =>
+                appointment.name.toLowerCase().includes(filterValue.toLowerCase()),
             );
         }
         if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
-            filteredUsers = filteredUsers.filter((user) =>
-                Array.from(statusFilter).includes(user.status),
+            filteredAppointments = filteredAppointments.filter((appointment) =>
+                Array.from(statusFilter).includes(appointment.status),
             );
         }
 
-        return filteredUsers;
-    }, [users, filterValue, statusFilter]);
+        return filteredAppointments;
+    }, [appointments, filterValue, statusFilter]);
+
+
 
     const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -87,30 +92,30 @@ export default function AppointmentsTable() {
         });
     }, [sortDescriptor, items]);
 
-    const renderCell = React.useCallback((user, columnKey) => {
-        const cellValue = user[columnKey];
+    const renderCell = React.useCallback((appointment, columnKey) => {
+        const cellValue = appointment[columnKey];
 
         switch (columnKey) {
             case "name":
                 return (
                     <User
-                        avatarProps={{radius: "lg", src: user.avatar}}
-                        description={user.email}
+                        avatarProps={{radius: "lg", src: appointment.avatar}}
+                        description={appointment.email}
                         name={cellValue}
                     >
-                        {user.email}
+                        {appointment.email}
                     </User>
                 );
-            case "role":
+            case "date":
                 return (
                     <div className="flex flex-col">
                         <p className="text-bold text-small capitalize">{cellValue}</p>
-                        <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
+                        <p className="text-bold text-tiny capitalize text-default-400">{appointment.date}</p>
                     </div>
                 );
             case "status":
                 return (
-                    <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
+                    <Chip className="capitalize" color={statusColorMap[appointment.status]} size="sm" variant="flat">
                         {cellValue}
                     </Chip>
                 );
@@ -229,7 +234,7 @@ export default function AppointmentsTable() {
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
-                    <span className="text-default-400 text-small">Total {users.length} users</span>
+                    <span className="text-default-400 text-small">Total {appointments.length} appointments</span>
                     <label className="flex items-center text-default-400 text-small">
                         Rows per page:
                         <select
@@ -249,7 +254,7 @@ export default function AppointmentsTable() {
         statusFilter,
         visibleColumns,
         onRowsPerPageChange,
-        users.length,
+        appointments.length,
         onSearchChange,
         hasSearchFilter,
     ]);
@@ -301,6 +306,7 @@ export default function AppointmentsTable() {
             topContentPlacement="outside"
             onSelectionChange={setSelectedKeys}
             onSortChange={setSortDescriptor}
+            isLoading={isLoading}
         >
             <TableHeader columns={headerColumns}>
                 {(column) => (
@@ -313,7 +319,7 @@ export default function AppointmentsTable() {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={"No users found"} items={sortedItems}>
+            <TableBody emptyContent={"No appointments found"} items={sortedItems}>
                 {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

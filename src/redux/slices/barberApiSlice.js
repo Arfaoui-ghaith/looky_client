@@ -4,7 +4,7 @@ const BARVERS_URL = "/barberShops";
 
 export const barbersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        login: builder.mutation({
+        loginAsBarber: builder.mutation({
             query: (data) => ({
                 url: `${BARVERS_URL}/signin`,
                 method: 'post',
@@ -23,4 +23,4 @@ export const barbersApiSlice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useLoginMutation, useInfosQuery } = barbersApiSlice;
+export const { useLoginAsBarberMutation, useInfosQuery } = barbersApiSlice;

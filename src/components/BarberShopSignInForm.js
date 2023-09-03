@@ -1,10 +1,10 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {signInAsBarber} from "../services/authService";
+
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "../redux/slices/barberApiSlice";
+import { useLoginAsBarberMutation } from "../redux/slices/barberApiSlice";
 import { setCredentials } from "../redux/slices/auth";
 
 function BarberShopSignInForm() {
@@ -13,7 +13,7 @@ function BarberShopSignInForm() {
     const [data, setData] = React.useState({});
 
     const dispatch = useDispatch();
-    const [login, { isLoading, error }] = useLoginMutation();
+    const [loginAsBarber, { isLoading, error }] = useLoginAsBarberMutation();
 
     const change = (index,value) => {
         if(value === ""){
@@ -30,7 +30,7 @@ function BarberShopSignInForm() {
     const submitSignIn  = async (e) => {
         e.preventDefault();
         try {
-            const res = await login(data).unwrap();
+            const res = await loginAsBarber(data).unwrap();
             dispatch(setCredentials({...res}));
             toast.success("Successfully Accessed");
             navigate('/');

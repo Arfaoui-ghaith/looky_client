@@ -1,17 +1,21 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {signInAsCustomer, signInAsCustomerBySocialNetwork} from '../services/authService';
+
 import toast from 'react-hot-toast';
 import {BeatLoader} from "react-spinners";
 import { LoginSocialFacebook, LoginSocialGoogle, LoginSocialInstagram } from "reactjs-social-login";
-
+import { useDispatch } from "react-redux";
+import { useLoginAsCustomerMutation } from "../redux/slices/customerApiSlice";
+import { setCredentials } from "../redux/slices/auth";
 
 function CustomerSignInForm() {
     let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
-    const [loading, setLoading] = React.useState(false);
 
+    const dispatch = useDispatch();
+    const [loginAsCustomer, { isLoading, error }] = useLoginAsCustomerMutation();
+    const [loginBySocialNetwork] = useLoginAsCustomerMutation();
 
     const change = (index,value) => {
         if(value === ""){
@@ -25,38 +29,31 @@ function CustomerSignInForm() {
         }
     }
 
-    const signIn = async() => {
-        setLoading(true);
-        const res = await signInAsCustomer(data);
-        if(res.name === 'AxiosError'){
-            toast.error(res.response.data.message);
-            console.log(res);
-        }else{
-            console.log(res);
+    const submitSignIn  = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await loginAsCustomer(data).unwrap();
+            dispatch(setCredentials({...res}));
             toast.success("Successfully Accessed");
-            console.log(localStorage.getItem("lookyCustomerToken"),`${res.data.token}`);
-            localStorage.setItem("lookyCustomerToken", `${res.data.token}`);
             navigate('/');
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
-        setLoading(false);
     }
 
-    const signInBySocialNetwork = async(d) => {
-        setLoading(true);
-        const res = await signInAsCustomerBySocialNetwork(d);
-        if(res.name === 'AxiosError'){
-            toast.error(res.response.data.message);
-            console.log(res);
-        }else{
-            console.log(res);
+    const signInBySocialNetwork  = async (d) => {
+        try {
+            const res = await loginBySocialNetwork(d).unwrap();
+            dispatch(setCredentials({...res}));
             toast.success("Successfully Accessed");
-            localStorage.setItem("lookyCustomerToken", `${res.data.token}`);
             navigate('/');
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
-        setLoading(false);
     }
 
-    console.log(process.env.REACT_APP_FB_APP_ID);
 
     return (
         <React.Fragment>
@@ -83,8 +80,8 @@ function CustomerSignInForm() {
                     </div>
                     <a href="">Forgot Password</a>
                 </div>
-                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signIn()}>{
-                    loading ? <BeatLoader color="#fff" size={10} /> : "Sign In"
+                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={(e)=>submitSignIn(e)}>{
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Sign In"
                 }</button>
                 <div className="separator">OR</div>
                 <div className="d-flex justify-content-center pt-1 m-n1 ">

@@ -1,17 +1,21 @@
-import React, { useState } from "react";
-import { Button } from 'primereact/button';
+import React from "react";
+
 import { Dialog } from 'primereact/dialog';
 import {BeatLoader} from "react-spinners";
 import {Calendar} from "primereact/calendar";
 import toast from "react-hot-toast";
-import {bookAppointment} from "../services/appointmentService";
+
+import { useSelector } from "react-redux";
+import {useBookAppointmentMutation} from "../redux/slices/appointmentsApiSlice";
 
 function BookAppointment({barber,visible,onChange}) {
 
     const [data, setData] = React.useState({barberShopId: barber.id});
-    const [loading, setLoading] = React.useState(false);
     const [time, setTime] = React.useState();
 
+    const [bookAppointment, { isLoading, error }] = useBookAppointmentMutation();
+
+    let { userInfo } = useSelector(state => state.auth);
 
     const change = (index,value) => {
         if(value === ""){
@@ -33,18 +37,22 @@ function BookAppointment({barber,visible,onChange}) {
         return date;
     }
 
-    const book = async() => {
-        setLoading(true);
-        const res = await bookAppointment({...data, date: data.date.toISOString()});
-        if(res.name === 'AxiosError'){
-            toast.error(res.response.data.message);
-            console.log(res);
-        }else{
-            console.log(res);
-            toast.success("Appointment Booked Successfully");
+    const submitBook  = async (e) => {
+        console.log({
+            body: {...data, date: data.date.toISOString()},
+            token: userInfo.token
+        })
+        e.preventDefault();
+        try {
+            const res = await bookAppointment({
+                body: {...data, date: data.date.toISOString()},
+                token: userInfo.token
+            }).unwrap();
+            toast.success("Appointment Successfully Booked");
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
-        setLoading(false);
-        onChange(false);
     }
 
     let calendarStyle = {
@@ -56,8 +64,8 @@ function BookAppointment({barber,visible,onChange}) {
 
     const footerContent = (
         <div>
-            <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=> book()}>{
-                loading ? <BeatLoader color="#fff" size={10} /> : "BOOK"
+            <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={(e)=> submitBook(e)}>{
+                isLoading ? <BeatLoader color="#fff" size={10} /> : "BOOK"
             }</button>
         </div>
     );
@@ -74,7 +82,7 @@ function BookAppointment({barber,visible,onChange}) {
                     <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onClick={(e) => change("serviceId",e.target.value)}>
                         <option selected="">Open the services menu</option>
                         {
-                            barber.services.map(s => <option value={s.id}>
+                            barber.services.map(s => <option key={s.id} value={s.id}>
                                     {s.title} - {s.price} TND
                             </option>)
                         }

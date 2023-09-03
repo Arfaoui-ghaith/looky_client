@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-console.log(`${localStorage.getItem('lookyCustomerToken')}`,"   ###");
 const customerInstance = axios.create({
     baseURL: 'https://looky-server.onrender.com/api/v1',
     headers: {

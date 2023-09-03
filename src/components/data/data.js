@@ -2,17 +2,17 @@ import React from "react";
 const columns = [
     {name: "ID", uid: "id", sortable: true},
     {name: "NAME", uid: "name", sortable: true},
-    {name: "AGE", uid: "age", sortable: true},
-    {name: "ROLE", uid: "role", sortable: true},
-    {name: "TEAM", uid: "team"},
+    {name: "DATE", uid: "date", sortable: true},
+    {name: "SERVICE", uid: "service", sortable: true},
+    {name: "PRICE", uid: "price", sortable: true},
     {name: "EMAIL", uid: "email"},
     {name: "STATUS", uid: "status", sortable: true},
     {name: "ACTIONS", uid: "actions"},
 ];
 
 const statusOptions = [
-    {name: "Active", uid: "active"},
-    {name: "Paused", uid: "paused"},
+    {name: "Confirmed", uid: "active"},
+    {name: "Waiting", uid: "paused"},
     {name: "Vacation", uid: "vacation"},
 ];
 

@@ -17,7 +17,6 @@ function BarberShops() {
     const [barber, setBarber] = React.useState();
 
     const {id} = useParams();
-    console.log(id);
 
     React.useEffect(() => {
         async function fetchData() {
