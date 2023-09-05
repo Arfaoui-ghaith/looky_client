@@ -15,6 +15,7 @@ function BarberShopServices() {
     let {data: res, isLoading, error } = useInfosQuery({token: userInfo.token});
 
     React.useEffect(() => {
+        console.log(res)
         if(res){
             setServices(res.services)
         }
