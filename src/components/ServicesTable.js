@@ -20,10 +20,10 @@ import {PlusIcon} from "./icons/PlusIcon";
 import {VerticalDotsIcon} from "./icons/VerticalDotsIcon";
 import {SearchIcon} from "./icons/SearchIcon";
 import {ChevronDownIcon} from "./icons/ChevronDownIcon";
-import {columns, statusOptions} from "./data/data";
+
 import {capitalize} from "./utils";
-import AddTeamMember from "./AddTeamMember";
 import AddService from "./AddService";
+import {useNavigate} from "react-router-dom";
 
 const statusColorMap = {
     confirmed: "success",
@@ -31,10 +31,22 @@ const statusColorMap = {
     waiting: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "actions"];
+const columns = [
+    {name: "ID", uid: "id"},
+    {name: "TITLE", uid: "title", sortable: true},
+    {name: "PRICE", uid: "price", sortable: true},
+    {name: "DESCRIPTION", uid: "description"},
+    {name: "DURATION", uid: "duration", sortable: true},
+    {name: "BARBERSHOPID", uid: "barberShopId"},
+    {name: "GALLERIES", uid: "galleries"},
+    {name: "CREATEDAT", uid: "createdAt", sortable: true},
+    {name: "ACTIONS", uid: "actions"},
+];
 
-export default function ServicesTable({isLoading, appointments}) {
+const INITIAL_VISIBLE_COLUMNS = ["title", "price", "duration", "createdAt", "actions"];
 
+export default function ServicesTable({isLoading, services}) {
+    const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
 
     const [filterValue, setFilterValue] = React.useState("");
@@ -43,7 +55,7 @@ export default function ServicesTable({isLoading, appointments}) {
     const [statusFilter, setStatusFilter] = React.useState("all");
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [sortDescriptor, setSortDescriptor] = React.useState({
-        column: "date",
+        column: "createdAt",
         direction: "descending",
     });
     const [page, setPage] = React.useState(1);
@@ -57,21 +69,16 @@ export default function ServicesTable({isLoading, appointments}) {
     }, [visibleColumns]);
 
     const filteredItems = React.useMemo(() => {
-        let filteredAppointments = [...appointments];
+        let filteredServices = [...services];
 
         if (hasSearchFilter) {
-            filteredAppointments = filteredAppointments.filter((appointment) =>
-                appointment.name.toLowerCase().includes(filterValue.toLowerCase()) || appointment.email.toLowerCase().includes(filterValue.toLowerCase()),
-            );
-        }
-        if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
-            filteredAppointments = filteredAppointments.filter((appointment) =>
-                Array.from(statusFilter).includes(appointment.status),
+            filteredServices = filteredServices.filter((service) =>
+                service.title.toLowerCase().includes(filterValue.toLowerCase()) || service.title.toLowerCase().includes(filterValue.toLowerCase()),
             );
         }
 
-        return filteredAppointments;
-    }, [appointments, filterValue, statusFilter]);
+        return filteredServices;
+    }, [services, filterValue, statusFilter]);
 
 
 
@@ -94,32 +101,37 @@ export default function ServicesTable({isLoading, appointments}) {
         });
     }, [sortDescriptor, items]);
 
-    const renderCell = React.useCallback((appointment, columnKey) => {
-        const cellValue = appointment[columnKey];
+    const renderCell = React.useCallback((service, columnKey) => {
+        const cellValue = service[columnKey];
 
         switch (columnKey) {
-            case "name":
+            case "title":
                 return (
                     <User
-                        avatarProps={{radius: "lg", src: appointment.avatar}}
-                        description={appointment.email}
+                        avatarProps={{radius: "lg", src: service.gallery.length > 0 ? service.gallery[0].image : ''}}
                         name={cellValue}
                     >
-                        {appointment.email}
+                        {service.email}
                     </User>
                 );
-            case "date":
+            case "createdAt":
                 return (
                     <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize mb-0 mt-auto pt-2">{cellValue.toLocaleDateString("fr-FR")}</p>
-                        <p className="text-bold text-tiny capitalize text-default-400">{`${appointment.date.getUTCHours()}h${appointment.date.getUTCMinutes()}`}</p>
+                        <p className="text-bold text-small capitalize mb-0 mt-auto pt-2">{new Date(cellValue).toLocaleDateString("fr-FR")}</p>
+                        <p className="text-bold text-tiny capitalize text-default-400">{`${new Date(service.createdAt).getUTCHours()}h${new Date(service.createdAt).getUTCMinutes()}`}</p>
                     </div>
                 );
-            case "status":
+            case "price":
                 return (
-                    <Chip className="capitalize" color={statusColorMap[appointment.status]} size="sm" variant="flat">
-                        {cellValue}
-                    </Chip>
+                    <p className="text-bold text-small capitalize mb-0 mt-auto pt-2" >
+                        {cellValue} TND
+                    </p>
+                );
+            case "duration":
+                return (
+                    <p className="text-bold text-small capitalize mb-0 mt-auto pt-2" >
+                        {cellValue} minutes
+                    </p>
                 );
             case "actions":
                 return (
@@ -131,7 +143,7 @@ export default function ServicesTable({isLoading, appointments}) {
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu>
-                                <DropdownItem>View</DropdownItem>
+                                <DropdownItem onClick={() => navigate(`/service/${service.id}`)}>View</DropdownItem>
                                 <DropdownItem>Edit</DropdownItem>
                                 <DropdownItem>Delete</DropdownItem>
                             </DropdownMenu>
@@ -191,27 +203,6 @@ export default function ServicesTable({isLoading, appointments}) {
                         <Dropdown>
                             <DropdownTrigger className="hidden sm:flex">
                                 <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                                    Status
-                                </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                disallowEmptySelection
-                                aria-label="Table Columns"
-                                closeOnSelect={false}
-                                selectedKeys={statusFilter}
-                                selectionMode="multiple"
-                                onSelectionChange={setStatusFilter}
-                            >
-                                {statusOptions.map((status) => (
-                                    <DropdownItem key={status.uid} className="capitalize">
-                                        {capitalize(status.name)}
-                                    </DropdownItem>
-                                ))}
-                            </DropdownMenu>
-                        </Dropdown>
-                        <Dropdown>
-                            <DropdownTrigger className="hidden sm:flex">
-                                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
                                     Columns
                                 </Button>
                             </DropdownTrigger>
@@ -236,7 +227,7 @@ export default function ServicesTable({isLoading, appointments}) {
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
-                    <span className="text-default-400 text-small">Total {appointments.length} appointments</span>
+                    <span className="text-default-400 text-small">Total {services.length} services</span>
                     <label className="flex items-center text-default-400 text-small">
                         Rows per page:
                         <select
@@ -256,7 +247,7 @@ export default function ServicesTable({isLoading, appointments}) {
         statusFilter,
         visibleColumns,
         onRowsPerPageChange,
-        appointments.length,
+        services.length,
         onSearchChange,
         hasSearchFilter,
     ]);
@@ -321,7 +312,7 @@ export default function ServicesTable({isLoading, appointments}) {
                         </TableColumn>
                     )}
                 </TableHeader>
-                <TableBody emptyContent={"No appointments found"} items={sortedItems}>
+                <TableBody emptyContent={"No services found"} items={sortedItems}>
                     {(item) => (
                         <TableRow key={item.id}>
                             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

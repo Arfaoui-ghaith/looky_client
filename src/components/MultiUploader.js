@@ -6,33 +6,24 @@ import {useAddImagesMutation} from "../redux/slices/servicesApiSlice";
 import toast from "react-hot-toast";
 
 
-export default function MultiUploader({serviceId}) {
-    const [images, setImages] = useState();
+export default function MultiUploader({serviceId,onChange,visible}) {
+
     let { userInfo } = useSelector(state => state.auth);
     const [addImages, { isLoading,isSuccess, error }] = useAddImagesMutation();
 
     console.log("serviceId",serviceId);
-    const handleImages = (e) => {
-        const images = e.files;
-        const formData = new FormData();
 
-        for (let image of images) {
-            formData.append('images', image);
-        }
-
-        if (images) {
-            setImages(formData);
-        }
-    }
 
     const submitAddImages  = async (e) => {
-        handleImages(e);
-        console.log(images)
         try {
-            const res = await addImages({body: images, id: serviceId,token: userInfo.token}).unwrap();
+            const formData = new FormData();
+            for (let image of e.files) {
+                formData.append('images', image);
+            }
+            const res = await addImages({body: formData, id: serviceId,token: userInfo.token}).unwrap();
             console.log(res)
             toast.success("Images Added Successfully!");
-
+            onChange(false);
         }catch (err) {
             toast.error(err?.data?.message);
             console.error(err);

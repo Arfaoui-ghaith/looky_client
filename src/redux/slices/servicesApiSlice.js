@@ -34,7 +34,18 @@ export const servicesApiSlice = apiSlice.injectEndpoints({
                 body: data.body
             })
         }),
+        getService: builder.query({
+            query: (data) => ({
+                url: `${SERVICES_URL}/${data.id}`,
+                method: 'get'
+            })
+        }),
     })
 });
 
-export const { useServicesQuery, useAddServiceMutation, useAddImagesMutation } = servicesApiSlice;
+export const {
+    useServicesQuery,
+    useAddServiceMutation,
+    useAddImagesMutation,
+    useGetServiceQuery
+} = servicesApiSlice;

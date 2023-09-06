@@ -86,7 +86,7 @@ function AddService({barber,visible,onChange}) {
                     <div>
                     <h1 className="text-uppercase mb-4">Upload your service gallery here!</h1>
                     <p>Note: the first uploaded image will be the primary one for this service.</p>
-                        <MultiUploader serviceId={serviceId}/> </div>:
+                        <MultiUploader onChange={visible=>onChange(visible)} visible={visible} serviceId={serviceId}/> </div>:
                     <Editor value={text} onTextChange={(e) => setText(e.htmlValue)} style={{ height: '320px' }} />
                 }
             </div>
