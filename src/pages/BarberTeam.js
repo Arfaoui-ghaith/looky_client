@@ -2,14 +2,21 @@ import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
-import BookAppointment from "../components/BookAppointment";
 import AddTeamMember from "../components/AddTeamMember";
+import {Button as Btn} from "primereact/button";
+import {useInfosQuery} from "../redux/slices/barberApiSlice";
+import {useSelector} from "react-redux";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function BarberTeam() {
     const [visible, setVisible] = useState(false);
 
+    let { userInfo } = useSelector(state => state.auth);
+    let {data: res, isLoading, error } = useInfosQuery({token: userInfo.token});
+
     return (
         <React.Fragment>
+            <LoadingSpinner isLoading={isLoading}/>
             <NavBar/>
             <PageHeader title="Your Team"/>
 
@@ -47,6 +54,7 @@ function BarberTeam() {
                         </div>
                     </div>
                     <div className="row g-4">
+                        { res?.barberShop?.members.map(member =>
                         <div
                             className="col-lg-3 col-md-6 wow fadeInUp"
                             data-wow-delay="0.3s"
@@ -58,25 +66,23 @@ function BarberTeam() {
                         >
                             <div className="team-item">
                                 <div className="team-img position-relative overflow-hidden">
-                                    <img className="img-fluid" src="/img/team-2.jpg" alt="" />
+                                    <img className="img-fluid" src={member.image} alt="" />
                                     <div className="team-social">
-                                        <a className="btn btn-square" href="">
-                                            <i className="fab fa-facebook-f" />
-                                        </a>
-                                        <a className="btn btn-square" href="">
-                                            <i className="fab fa-twitter" />
-                                        </a>
-                                        <a className="btn btn-square" href="">
-                                            <i className="fab fa-instagram" />
-                                        </a>
+                                        <Btn className="btn btn-square" href="">
+                                            <i className="fa-regular fa-pen-to-square"></i>
+                                        </Btn>
+                                        <Btn className="btn btn-square" href="">
+                                            <i className="fab fa-trash" />
+                                        </Btn>
                                     </div>
                                 </div>
                                 <div className="bg-secondary text-center p-4">
-                                    <h5 className="text-uppercase">Barber Name</h5>
-                                    <span className="text-primary">Designation</span>
+                                    <h5 className="text-uppercase">{`${member.firstName} ${member.lastName}`}</h5>
+                                    <span className="text-primary">{member.role != null ? member.role : ''}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div>)
+                        }
                     </div>
                 </div>
             </div>

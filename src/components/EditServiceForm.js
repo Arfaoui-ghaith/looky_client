@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
 import {useSelector} from "react-redux";
-import {useAddServiceMutation, useUpdateServiceMutation} from "../redux/slices/servicesApiSlice";
+import {useUpdateServiceMutation} from "../redux/slices/servicesApiSlice";
 import toast from "react-hot-toast";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Editor} from "primereact/editor";
 import {BeatLoader} from "react-spinners";
 import {TabPanel, TabView} from "primereact/tabview";
-import {OrderList} from "primereact/orderlist";
 import GalleryList from "./GalleryList";
 import MultiUploader from "./MultiUploader";
 
