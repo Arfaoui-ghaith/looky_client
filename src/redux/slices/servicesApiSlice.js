@@ -40,6 +40,34 @@ export const servicesApiSlice = apiSlice.injectEndpoints({
                 method: 'get'
             })
         }),
+        deleteService: builder.mutation({
+            query: (data) => ({
+                url: `${SERVICES_URL}/${data.id}`,
+                method: 'delete',
+                headers: {
+                    'Authorization': data.token,
+                }
+            })
+        }),
+        updateService: builder.mutation({
+            query: (data) => ({
+                url: `${SERVICES_URL}/${data.id}`,
+                method: 'put',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
+        deleteImage: builder.mutation({
+            query: (data) => ({
+                url: `${GALLERIES_URL}/${data.id}`,
+                method: 'delete',
+                headers: {
+                    'Authorization': data.token,
+                }
+            })
+        }),
     })
 });
 
@@ -47,5 +75,8 @@ export const {
     useServicesQuery,
     useAddServiceMutation,
     useAddImagesMutation,
-    useGetServiceQuery
+    useGetServiceQuery,
+    useDeleteServiceMutation,
+    useUpdateServiceMutation,
+    useDeleteImageMutation
 } = servicesApiSlice;

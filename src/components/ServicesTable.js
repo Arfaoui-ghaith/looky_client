@@ -24,12 +24,14 @@ import {ChevronDownIcon} from "./icons/ChevronDownIcon";
 import {capitalize} from "./utils";
 import AddService from "./AddService";
 import {useNavigate} from "react-router-dom";
-
-const statusColorMap = {
-    confirmed: "success",
-    refused: "danger",
-    waiting: "warning",
-};
+import toast from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import {useAddServiceMutation, useDeleteServiceMutation} from "../redux/slices/servicesApiSlice";
+import {BeatLoader} from "react-spinners";
+import {Dialog} from "primereact/dialog";
+import { setService, clearService } from "../redux/slices/data";
+import { Button as Btn } from 'primereact/button'
+import EditService from "./EditService";
 
 const columns = [
     {name: "ID", uid: "id"},
@@ -45,7 +47,40 @@ const columns = [
 
 const INITIAL_VISIBLE_COLUMNS = ["title", "price", "duration", "createdAt", "actions"];
 
-export default function ServicesTable({isLoading, services}) {
+export default function ServicesTable({services}) {
+
+    let dispatch = useDispatch();
+    const [visibleDialog, setVisibleDialog] = useState(false);
+    const [visibleEdit, setVisibleEdit] = useState(false);
+    let { userInfo } = useSelector(state => state.auth);
+    const [deleteService, { isLoading, isSuccess, error }] = useDeleteServiceMutation();
+    let { service } = useSelector(state => state.data);
+    const submitDeleteService  = async () => {
+        try {
+            const res = await deleteService({id: service.id, token: userInfo.token}).unwrap();
+            console.log(res)
+            dispatch(clearService())
+            toast.success("Service Deleted Successfully!");
+            window.location.reload();
+        }catch (err) {
+            dispatch(clearService())
+            setVisibleDialog(false);
+            toast.error(err?.data?.message);
+            console.error(err);
+        }
+    }
+
+    const footerContent = (
+        <div>
+            <Btn label="No" icon="pi pi-times" onClick={() => setVisibleDialog(false)} className="p-button-text" />
+            <Btn icon="pi pi-check" onClick={() => submitDeleteService()} >
+                {
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                }
+            </Btn>
+        </div>
+    );
+
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
 
@@ -144,8 +179,8 @@ export default function ServicesTable({isLoading, services}) {
                             </DropdownTrigger>
                             <DropdownMenu>
                                 <DropdownItem onClick={() => navigate(`/service/${service.id}`)}>View</DropdownItem>
-                                <DropdownItem>Edit</DropdownItem>
-                                <DropdownItem>Delete</DropdownItem>
+                                <DropdownItem key={service.id} onClick={() => {dispatch(setService({...service})); setVisibleEdit(true);}}>Edit</DropdownItem>
+                                <DropdownItem key={service.id} onClick={() => {dispatch(setService({...service})); setVisibleDialog(true);}}>Delete</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -299,7 +334,6 @@ export default function ServicesTable({isLoading, services}) {
                 topContentPlacement="outside"
                 onSelectionChange={setSelectedKeys}
                 onSortChange={setSortDescriptor}
-                isLoading={isLoading}
             >
                 <TableHeader columns={headerColumns}>
                     {(column) => (
@@ -319,8 +353,18 @@ export default function ServicesTable({isLoading, services}) {
                         </TableRow>
                     )}
                 </TableBody>
+
             </Table>
             <AddService onChange={visible=>setVisible(visible)} visible={visible}/>
+            <EditService service={service} onChange={visibleEdit=>setVisibleEdit(visibleEdit)} visible={visibleEdit}/>
+            <div className="card flex justify-content-center">
+
+                <Dialog header="Confirmation" visible={visibleDialog} style={{ width: '30vw' }} onHide={() => setVisibleDialog(false)} footer={footerContent}>
+                    <p className="m-0" style={{ color: "#fff" }}>
+                        Do you want to delete this record?
+                    </p>
+                </Dialog>
+            </div>
         </div>
     );
 }
