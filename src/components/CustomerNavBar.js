@@ -34,6 +34,7 @@ function CustomerNavBar() {
                         <Link to="/" className={location.pathname==="/" ? cssActive:cssInactive}>Home</Link>
                         <Link to="/barber-shops" className={location.pathname==="/barber-shops" ? cssActive:cssInactive}>Barbers</Link>
                         <Link to="/customer/appointments" className={location.pathname==="/customer/appointments" ? cssActive:cssInactive}>Appointments</Link>
+                        <Link to="/customer/profile" className={location.pathname==="/customer/profile" ? cssActive:cssInactive}>Profile</Link>
                         <span style={{ cursor: 'pointer' }} onClick={() => logoutSubmit()} className="nav-item nav-link">Sign out</span>
                     </div>
                 </div>

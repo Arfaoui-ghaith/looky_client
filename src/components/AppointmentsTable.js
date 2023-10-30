@@ -16,7 +16,6 @@ import {
     User,
     Pagination,
 } from "@nextui-org/react";
-import {PlusIcon} from "./icons/PlusIcon";
 import {VerticalDotsIcon} from "./icons/VerticalDotsIcon";
 import {SearchIcon} from "./icons/SearchIcon";
 import {ChevronDownIcon} from "./icons/ChevronDownIcon";
@@ -69,7 +68,7 @@ export default function AppointmentsTable({isLoading, appointments}) {
         }
 
         return filteredAppointments;
-    }, [appointments, filterValue, statusFilter]);
+    }, [appointments, filterValue, hasSearchFilter, statusFilter]);
 
 
 
@@ -130,8 +129,7 @@ export default function AppointmentsTable({isLoading, appointments}) {
                             </DropdownTrigger>
                             <DropdownMenu>
                                 <DropdownItem>View</DropdownItem>
-                                <DropdownItem>Edit</DropdownItem>
-                                <DropdownItem>Delete</DropdownItem>
+                                <DropdownItem>Update</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -228,9 +226,6 @@ export default function AppointmentsTable({isLoading, appointments}) {
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        <Button color="primary" endContent={<PlusIcon />}>
-                            Add New
-                        </Button>
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -249,15 +244,7 @@ export default function AppointmentsTable({isLoading, appointments}) {
                 </div>
             </div>
         );
-    }, [
-        filterValue,
-        statusFilter,
-        visibleColumns,
-        onRowsPerPageChange,
-        appointments.length,
-        onSearchChange,
-        hasSearchFilter,
-    ]);
+    }, [filterValue, onSearchChange, statusFilter, visibleColumns, appointments.length, onRowsPerPageChange, onClear]);
 
     const bottomContent = React.useMemo(() => {
         return (
@@ -286,7 +273,7 @@ export default function AppointmentsTable({isLoading, appointments}) {
                 </div>
             </div>
         );
-    }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+    }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
 
     return (
         <div className="m-5" >

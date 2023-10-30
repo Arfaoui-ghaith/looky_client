@@ -13,16 +13,15 @@ import "./App.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import NotFound from "./pages/404";
-import BarberAppointments from "./pages/BarberAppointments";
 import {NextUIProvider} from "@nextui-org/react";
 import BarberShopAppointments from "./pages/BarberShopAppointments";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import RoutesGuard from "./utils/guard";
-import Forbidden from "./pages/403";
 import BarberTeam from "./pages/BarberTeam";
 import BarberShopServices from "./pages/BarberShopServices";
 import ServicePage from "./pages/ServicePage";
+import CustomerProfile from "./pages/CustomerProfile";
 function App() {
   return (
       <Provider store={store}>
@@ -40,6 +39,9 @@ function App() {
                         </Route>
                         <Route exact path='/barber-shop/services' element={<RoutesGuard authenticatedFor='barber'/>}>
                             <Route exact path='/barber-shop/services' element={<BarberShopServices/>}/>
+                        </Route>
+                        <Route exact path='/customer/profile' element={<RoutesGuard authenticatedFor='customer'/>}>
+                            <Route exact path='/customer/profile' element={<CustomerProfile/>}/>
                         </Route>
                         <Route exact path='/join-us' element={<JoinUs/>}/>
                         <Route exact path='/service/:id' element={<ServicePage/>}/>

@@ -1,8 +1,8 @@
 import React from "react";
 import "./styles/imageUploader.css"
-function ImageUploader({onChange}) {
+function ImageUploader({f="https://i.ibb.co/jVxWHz3/hairstyle.png", onChange}) {
 
-    let [image, setImage] = React.useState("https://i.ibb.co/jVxWHz3/hairstyle.png");
+    let [image, setImage] = React.useState(f);
 
     const imageHandler = (e) => {
         const reader = new FileReader();
@@ -12,8 +12,7 @@ function ImageUploader({onChange}) {
             }
         }
         const file = new FormData();
-        file.append('image',e.target.files[0])
-        console.log(file.get('image'))
+        file.append('image',e.target.files[0]);
         onChange(file);
         reader.readAsDataURL(e.target.files[0]);
     };

@@ -35,6 +35,7 @@ function NavBar() {
                         <Link to="/barber-shop/services" className={location.pathname==="/barber-shop/services" ? cssActive:cssInactive}>Services</Link>
                         <Link to="/barber-shop/appointments" className={location.pathname==="/barber-shop/appointments" ? cssActive:cssInactive}>Appointments</Link>
                         <Link to="/barber-shop/team" className={location.pathname==="/barber-shop/team" ? cssActive:cssInactive}>Team</Link>
+                        <Link to="/barber-shop/profile" className={location.pathname==="/barber-shop/profile" ? cssActive:cssInactive}>Profile</Link>
                         <span style={{ cursor: 'pointer' }} onClick={() => logoutSubmit()} className="nav-item nav-link">Sign out</span>
                     </div>
                 </div>

@@ -5,13 +5,14 @@ import Footer from "../components/Footer";
 import AppointmentsTable from "../components/AppointmentsTable";
 import { useSelector } from "react-redux";
 import { useAppointmentsQuery } from "../redux/slices/appointmentsApiSlice";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function BarberShopAppointments() {
 
     let { userInfo } = useSelector(state => state.auth);
     const [appointments, setAppointments] = useState([]);
 
-    let {data: res, isLoading, error } = useAppointmentsQuery({token: userInfo.token});
+    let {data: res, isLoading } = useAppointmentsQuery({token: userInfo.token});
 
     React.useEffect(() => {
         if(res){
@@ -41,6 +42,7 @@ function BarberShopAppointments() {
 
     return (
         <React.Fragment>
+            <LoadingSpinner isLoading={isLoading}/>
             <NavBar/>
             <PageHeader title="Appointments"/>
 
