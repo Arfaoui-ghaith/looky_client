@@ -1,7 +1,5 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Carousel from "../components/Carousel";
-import CustomerSignUpForm from "../components/CustomerSignUpForm";
+import CustomerSignUpForm from "../../components/CustomerSignUpForm";
 
 function CustomerSignUp() {
     return (

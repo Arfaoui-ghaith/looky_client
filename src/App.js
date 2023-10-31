@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import JoinUs from "./pages/JoinUs";
 import BarberShops from "./pages/BarberShops";
 import BarberShopPage from "./pages/BarberShopPage";
-import CustomerSignUp from "./pages/CustomerSignUp";
+import CustomerSignUp from "./pages/customer/CustomerSignUp";
 import BarberShopSignUp from "./pages/BarberShopSignUp";
 import {Toaster} from "react-hot-toast";
 import { PrimeReactProvider } from 'primereact/api';
@@ -21,7 +21,7 @@ import RoutesGuard from "./utils/guard";
 import BarberTeam from "./pages/BarberTeam";
 import BarberShopServices from "./pages/BarberShopServices";
 import ServicePage from "./pages/ServicePage";
-import CustomerProfile from "./pages/CustomerProfile";
+import CustomerProfile from "./pages/customer/CustomerProfile";
 function App() {
   return (
       <Provider store={store}>

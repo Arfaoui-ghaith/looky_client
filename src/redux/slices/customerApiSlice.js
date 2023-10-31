@@ -17,8 +17,17 @@ export const customersApiSlice = apiSlice.injectEndpoints({
                 method: 'patch',
                 body: data
             })
+        }),
+        infos: builder.query({
+            query: (data) => ({
+                url: `${CUSTOMERS_URL}/infos`,
+                method: 'get',
+                headers: {
+                    'Authorization': data.token,
+                }
+            })
         })
     })
 });
 
-export const { useLoginAsCustomerMutation, useLoginBySocialNetworkMutation } = customersApiSlice;
+export const { useLoginAsCustomerMutation, useLoginBySocialNetworkMutation, useInfosQuery } = customersApiSlice;
