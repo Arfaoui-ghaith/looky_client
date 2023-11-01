@@ -1,30 +1,39 @@
 import ImageUploader from "../../ImageUploader";
 import React from "react";
 import {useSelector} from "react-redux";
-import {useAddMemberMutation} from "../../../redux/slices/teamApiSlice";
+import {useUpdateInfosMutation, useUpdateAvatarMutation} from "../../../redux/slices/customerApiSlice";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
+import {useNavigate} from "react-router-dom";
 
 function CustomerProfileInfosForm({customer}){
 
+    let navigate = useNavigate();
     const [data, setData] = React.useState({});
     const [file, setFile] = React.useState(new FormData());
 
     let { userInfo } = useSelector(state => state.auth);
-    const [addMember, { isLoading }] = useAddMemberMutation();
+    const [updateInfos, { isLoading: isLoadingInfos }] = useUpdateInfosMutation();
+    const [updateAvatar, { isLoading: isLoadingAvatar }] = useUpdateAvatarMutation();
 
-    const submitAddMember  = async (e) => {
+    const submitUpdate  = async (e) => {
         e.preventDefault();
         try {
-            let form = new FormData();
-            for(let key of Object.keys(data)){
-                form.append(key,data[key])
+            let res = {};
+            if(Object.keys(data).length > 0){
+                let resInfos = await updateInfos({body: data, token: userInfo.token}).unwrap();
+                toast.success("Customer Infos Updated Successfully!");
+                res.resInfos=resInfos;
             }
-            form.append("image", file.get('image'));
-            console.log(form)
-            const res = await addMember({body: form, token: userInfo.token}).unwrap();
-            console.log(res)
-            toast.success("Service Added Successfully!");
+            if(file.has('image')){
+                console.log(file.get('image'));
+                let resAvatar = await updateAvatar({body: file, token: userInfo.token}).unwrap();
+                toast.success("Customer Avatar Updated Successfully!");
+                res.resAvatar = resAvatar;
+            }
+            if(Object.keys(res).length > 0){
+                navigate('/customer/profile');
+            }
         }catch (err) {
             toast.error(err?.data?.message);
             console.error(err);
@@ -46,10 +55,10 @@ function CustomerProfileInfosForm({customer}){
 
     return(
         <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-4 ">
                 <ImageUploader f={customer.image} onChange={file => setFile(file)}/>
             </div>
-            <div className="col-lg-8 mt-3">
+            <div className="col-lg-8">
                 <div className="row">
                     <div className="col-md-6">
                         <div className="form-floating">
@@ -72,10 +81,11 @@ function CustomerProfileInfosForm({customer}){
                     <input type="text" className="form-control" id="floatingInput" placeholder="Phone" defaultValue={customer.phone !== null ? customer.phone : ''} onChange={(e) => change("phone", e.target.value)}/>
                     <label htmlFor="floatingInput">Phone</label>
                 </div>
+
             </div>
-            <div className="form-floating mt-3">
-                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={(e)=> console.log(e)}>{
-                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Save"
+            <div className="form-floating mt-4">
+                <button type="submit" className="btn-primary py-3 w-100" onClick={(e)=> submitUpdate(e)}>{
+                    isLoadingInfos || isLoadingAvatar ? <BeatLoader color="#fff" size={10} /> : "Save"
                 }</button>
             </div>
         </div>

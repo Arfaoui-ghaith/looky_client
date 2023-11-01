@@ -7,11 +7,11 @@ import { Avatar } from 'primereact/avatar';
 import CustomerProfileInfosForm from "../../components/customer/customerProfile/CustomerProfileInfosForm";
 import CustomerPasswordForm from "../../components/customer/customerProfile/CustomerPasswordForm";
 import {useSelector} from "react-redux";
-import {useInfosQuery} from "../../redux/slices/customerApiSlice";
+import {useInfosCustomerQuery} from "../../redux/slices/customerApiSlice";
 import LoadingSpinner from "../../components/LoadingSpinner";
 function CustomerProfile() {
     let { userInfo } = useSelector(state => state.auth);
-    let {data: res, isLoading, isSuccess } = useInfosQuery({token: userInfo.token});
+    let {data: res, isLoading, isSuccess } = useInfosCustomerQuery({token: userInfo.token});
 
     const passwordTab = (options) => {
         return (

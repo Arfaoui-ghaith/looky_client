@@ -18,7 +18,27 @@ export const customersApiSlice = apiSlice.injectEndpoints({
                 body: data
             })
         }),
-        infos: builder.query({
+        updateInfos: builder.mutation({
+            query: (data) => ({
+                url: `${CUSTOMERS_URL}/infos`,
+                method: 'put',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
+        updateAvatar: builder.mutation({
+            query: (data) => ({
+                url: `${CUSTOMERS_URL}/infos`,
+                method: 'post',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
+        infosCustomer: builder.query({
             query: (data) => ({
                 url: `${CUSTOMERS_URL}/infos`,
                 method: 'get',
@@ -30,4 +50,4 @@ export const customersApiSlice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useLoginAsCustomerMutation, useLoginBySocialNetworkMutation, useInfosQuery } = customersApiSlice;
+export const { useLoginAsCustomerMutation, useUpdateAvatarMutation, useUpdateInfosMutation, useLoginBySocialNetworkMutation, useInfosCustomerQuery } = customersApiSlice;

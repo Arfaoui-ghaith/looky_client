@@ -6,20 +6,29 @@ import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import { useInfosQuery } from "../redux/slices/barberApiSlice";
 import ServicesTable from "../components/ServicesTable";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function BarberShopServices() {
 
     let { userInfo } = useSelector(state => state.auth);
 
-    let {data: res, isLoading, error } = useInfosQuery({token: userInfo.token});
+    let {data: res, isLoading, isSuccess} = useInfosQuery({token: userInfo.token});
+    const [services, setServices] = React.useState([]);
 
+    React.useEffect(() => {
+        if (isSuccess){
+            setServices(res?.barberShop?.services);
+            console.log(services);
+        }
+    },[isSuccess, res]);
 
     return (
         <React.Fragment>
+            <LoadingSpinner isLoading={isLoading}/>
             <NavBar/>
             <PageHeader title="Services"/>
 
-            <ServicesTable isLoading={isLoading} services={res !== undefined ? res.barberShop.services : []} />
+            <ServicesTable isLoading={isLoading} services={services} />
 
             <Footer/>
         </React.Fragment>

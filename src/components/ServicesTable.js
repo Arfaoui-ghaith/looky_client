@@ -48,7 +48,6 @@ const columns = [
 const INITIAL_VISIBLE_COLUMNS = ["title", "price", "duration", "createdAt", "actions"];
 
 export default function ServicesTable({services}) {
-
     let dispatch = useDispatch();
     const [visibleDialog, setVisibleDialog] = useState(false);
     const [visibleEdit, setVisibleEdit] = useState(false);
