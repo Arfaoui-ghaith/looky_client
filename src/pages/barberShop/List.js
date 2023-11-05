@@ -1,12 +1,11 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Carousel from "../components/Carousel";
-import BarberCard from "../components/BarberCard";
-import PageHeader from "../components/PageHeader";
-import Footer from "../components/Footer";
-import { fetchBarberShops } from "../services/barberShopService";
+import NavBar from "../../components/NavBar";
+import BarberCard from "../../components/BarberCard";
+import PageHeader from "../../components/PageHeader";
+import Footer from "../../components/Footer";
+import { fetchBarberShops } from "../../services/barberShopService";
 
-function BarberShops() {
+function List() {
     const [barbers, setBarbers] = React.useState([]);
 
 
@@ -57,4 +56,4 @@ function BarberShops() {
     );
 }
 
-export default BarberShops;
+export default List;

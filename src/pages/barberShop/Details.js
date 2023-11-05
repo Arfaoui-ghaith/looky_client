@@ -1,16 +1,13 @@
 import React, {useState} from "react";
-import NavBar from "../components/NavBar";
-import Carousel from "../components/Carousel";
-import BarberCard from "../components/BarberCard";
-import PageHeader from "../components/PageHeader";
-import Footer from "../components/Footer";
-import AboutUs from "../components/AboutUs";
-import FeedBacks from "../components/FeedBacks";
-import BarberShopTeam from "../components/BarberShopTeam";
-import BarberServices from "../components/BarberServices";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
+import AboutUs from "../../components/AboutUs";
+import FeedBacks from "../../components/FeedBacks";
+import BarberShopTeam from "../../components/BarberShopTeam";
+import BarberServices from "../../components/BarberServices";
 import {useNavigate, useParams} from "react-router-dom";
-import {fetchBarberInfos} from "../services/barberShopService";
-import BookAppointment from "../components/BookAppointment";
+import {fetchBarberInfos} from "../../services/barberShopService";
+import BookAppointment from "../../components/BookAppointment";
 
 function BarberShops() {
     const [visible, setVisible] = useState(false);
@@ -29,7 +26,7 @@ function BarberShops() {
             }
         }
         fetchData().then();
-    },[]);
+    },[id]);
 
     const navigate = useNavigate();
 
@@ -65,8 +62,8 @@ function BarberShops() {
             {barber ? <BarberServices services={barber.services}/> : "" }
             <FeedBacks/>
             <Footer/>
-            <a href="#" className="btn btn-primary btn-lg-square back-to-top"><i
-                className="bi bi-arrow-up"></i></a>
+            <span className="btn btn-primary btn-lg-square back-to-top"><i
+                className="bi bi-arrow-up"></i></span>
         </React.Fragment>
     );
 }

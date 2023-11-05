@@ -1,8 +1,5 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Carousel from "../components/Carousel";
-import CustomerSignUpForm from "../components/CustomerSignUpForm";
-import BarberShopSignUpForm from "../components/BarberShopSignUpForm";
+import BarberShopSignUpForm from "../../components/BarberShopSignUpForm";
 
 function BarberShopSignUp() {
     return (

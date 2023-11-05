@@ -19,8 +19,44 @@ export const barbersApiSlice = apiSlice.injectEndpoints({
                     'Authorization': data.token,
                 }
             })
-        })
+        }),
+        updateBarberInfos: builder.mutation({
+            query: (data) => ({
+                url: `${BARVERS_URL}/infos`,
+                method: 'put',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
+        updateBarberPassword: builder.mutation({
+            query: (data) => ({
+                url: `${BARVERS_URL}/password`,
+                method: 'put',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
+        updateBarberAvatar: builder.mutation({
+            query: (data) => ({
+                url: `${BARVERS_URL}/infos`,
+                method: 'post',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
     })
 });
 
-export const { useLoginAsBarberMutation, useInfosQuery } = barbersApiSlice;
+export const {
+    useLoginAsBarberMutation,
+    useInfosQuery,
+    useUpdateBarberAvatarMutation,
+    useUpdateBarberPasswordMutation,
+    useUpdateBarberInfosMutation
+} = barbersApiSlice;

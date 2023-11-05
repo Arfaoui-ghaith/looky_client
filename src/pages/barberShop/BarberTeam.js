@@ -1,18 +1,18 @@
 import React, {useState} from "react";
-import NavBar from "../components/NavBar";
-import PageHeader from "../components/PageHeader";
-import Footer from "../components/Footer";
-import AddTeamMember from "../components/AddTeamMember";
+import NavBar from "../../components/NavBar";
+import PageHeader from "../../components/PageHeader";
+import Footer from "../../components/Footer";
+import AddTeamMember from "../../components/AddTeamMember";
 import {Button as Btn} from "primereact/button";
-import {useInfosQuery} from "../redux/slices/barberApiSlice";
+import {useInfosQuery} from "../../redux/slices/barberApiSlice";
 import {useDispatch, useSelector} from "react-redux";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import validator from 'validator';
 import {ConfirmPopup, confirmPopup} from "primereact/confirmpopup";
-import {useDeleteMemberMutation} from "../redux/slices/teamApiSlice";
+import {useDeleteMemberMutation} from "../../redux/slices/teamApiSlice";
 import toast from "react-hot-toast";
-import UpdateTeamMember from "../components/UpdateTeamMember";
-import {setMember} from "../redux/slices/data";
+import UpdateTeamMember from "../../components/UpdateTeamMember";
+import {setMember} from "../../redux/slices/data";
 
 function BarberTeam() {
     const dispatch = useDispatch();

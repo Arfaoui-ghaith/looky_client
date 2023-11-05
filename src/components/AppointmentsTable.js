@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Table,
     TableHeader,
@@ -19,8 +19,13 @@ import {
 import {VerticalDotsIcon} from "./icons/VerticalDotsIcon";
 import {SearchIcon} from "./icons/SearchIcon";
 import {ChevronDownIcon} from "./icons/ChevronDownIcon";
-import {columns, statusOptions} from "./data/data";
 import {capitalize} from "./utils";
+import {setAppointment} from "../redux/slices/data";
+import {useDispatch, useSelector} from "react-redux";
+import {Dialog} from "primereact/dialog";
+import {Button as Btn} from "primereact/button";
+import {BeatLoader} from "react-spinners";
+import {Mention} from "primereact/mention";
 
 const statusColorMap = {
     confirmed: "success",
@@ -28,12 +33,74 @@ const statusColorMap = {
     waiting: "warning",
 };
 
+const columns = [
+    {name: "ID", uid: "id", sortable: true},
+    {name: "NAME", uid: "name", sortable: true},
+    {name: "DATE", uid: "date", sortable: true},
+    {name: "SERVICE", uid: "service", sortable: true},
+    {name: "PRICE", uid: "price", sortable: true},
+    {name: "EMAIL", uid: "email"},
+    {name: "STATUS", uid: "status", sortable: true},
+    {name: "ACTIONS", uid: "actions"},
+];
+
+const statusOptions = [
+    {name: "confirmed", uid: "confirmed"},
+    {name: "refused", uid: "refused"},
+    {name: "waiting", uid: "waiting"},
+];
+
 const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "actions"];
 
 export default function AppointmentsTable({isLoading, appointments}) {
+    let dispatch = useDispatch();
+    let { appointment } = useSelector(state => state.data);
+    const [visibleConfirmDialog, setVisibleConfirmDialog] = useState(false);
+    const [visibleCancelDialog, setVisibleCancelDialog] = useState(false);
+    const [data, setData] = React.useState({});
 
-    console.log(appointments)
-    
+
+
+
+    const change = (index,value) => {
+        if(value === "" || value === null || value === undefined){
+            let form = data;
+            delete form[index];
+            setData(form);
+        }else {
+            let form = {...data};
+            form[index] = value;
+            setData(form);
+        }
+    }
+
+
+    const footerConfirmContent = (
+        <div>
+            <Btn label="No" icon="pi pi-times" onClick={() => setVisibleConfirmDialog(false)} className="p-button-text" />
+            <Btn icon="pi pi-check" onClick={() => console.log()} >
+                {
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                }
+            </Btn>
+        </div>
+    );
+
+    const footerCancelContent = (
+        <div>
+            <Btn label="No" icon="pi pi-times" onClick={() => setVisibleCancelDialog(false)} className="p-button-text" />
+            <Btn icon="pi pi-check" onClick={() => console.log()} >
+                {
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                }
+            </Btn>
+        </div>
+    );
+
+
+
+
+
     const [filterValue, setFilterValue] = React.useState("");
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
     const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -128,8 +195,8 @@ export default function AppointmentsTable({isLoading, appointments}) {
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu>
-                                <DropdownItem>View</DropdownItem>
-                                <DropdownItem>Update</DropdownItem>
+                                <DropdownItem key={appointment.id+"edit"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleConfirmDialog(true);}}>Confirm</DropdownItem>
+                                <DropdownItem key={appointment.id+"edit"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleCancelDialog(true);}}>Cancel</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -286,12 +353,9 @@ export default function AppointmentsTable({isLoading, appointments}) {
             classNames={{
                 wrapper: "max-h-[382px]",
             }}
-            selectedKeys={selectedKeys}
-            selectionMode="multiple"
             sortDescriptor={sortDescriptor}
             topContent={topContent}
             topContentPlacement="outside"
-            onSelectionChange={setSelectedKeys}
             onSortChange={setSortDescriptor}
             isLoading={isLoading}
         >
@@ -314,6 +378,61 @@ export default function AppointmentsTable({isLoading, appointments}) {
                 )}
             </TableBody>
         </Table>
+
+            <div className="card flex justify-content-center">
+                <Dialog header="Confirm Appointment" visible={visibleConfirmDialog} style={{ width: '30vw' }} onHide={() => setVisibleConfirmDialog(false)} footer={footerConfirmContent}>
+                    <p className="m-0" style={{ color: "#fff" }}>
+                        Do you want to <strong style={{color: "green"}}>confirm</strong> this appointment ?
+                    </p>
+
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment.name}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment.email}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment.service}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment.price}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment.date)).toLocaleDateString("fr-FR")}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment.date)).getUTCHours()}h{(new Date(appointment.date)).getUTCMinutes()}
+                    </p>
+                </Dialog>
+            </div>
+
+            <div className="card flex justify-content-center">
+                <Dialog header="Cancel Appointment" visible={visibleCancelDialog} style={{ width: '30vw' }} onHide={() => setVisibleCancelDialog(false)} footer={footerCancelContent}>
+                    <p className="m-0" style={{ color: "#fff" }}>
+                        Do you want to <strong style={{color: "#EB1616"}}>cancel</strong> this appointment ?
+                    </p>
+
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment.name}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment.email}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment.service}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment.price}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment.date)).toLocaleDateString("fr-FR")}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment.date)).getUTCHours()}h{(new Date(appointment.date)).getUTCMinutes()}
+                    </p>
+                </Dialog>
+            </div>
+
         </div>
     );
 }

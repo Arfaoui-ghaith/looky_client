@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import NavBar from "../components/NavBar";
-import PageHeader from "../components/PageHeader";
-import Footer from "../components/Footer";
+import React from "react";
+import NavBar from "../../components/NavBar";
+import PageHeader from "../../components/PageHeader";
+import Footer from "../../components/Footer";
 
 import { useSelector } from "react-redux";
-import { useInfosQuery } from "../redux/slices/barberApiSlice";
-import ServicesTable from "../components/ServicesTable";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { useInfosQuery } from "../../redux/slices/barberApiSlice";
+import ServicesTable from "../../components/ServicesTable";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-function BarberShopServices() {
+function Services() {
 
     let { userInfo } = useSelector(state => state.auth);
 
@@ -18,7 +18,6 @@ function BarberShopServices() {
     React.useEffect(() => {
         if (isSuccess){
             setServices(res?.barberShop?.services);
-            console.log(services);
         }
     },[isSuccess, res]);
 
@@ -35,4 +34,4 @@ function BarberShopServices() {
     );
 }
 
-export default BarberShopServices;
+export default Services;

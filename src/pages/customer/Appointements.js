@@ -1,39 +1,40 @@
 import React, {useState} from "react";
-import NavBar from "../components/NavBar";
-import PageHeader from "../components/PageHeader";
-import Footer from "../components/Footer";
-import AppointmentsTable from "../components/AppointmentsTable";
+import NavBar from "../../components/NavBar";
+import PageHeader from "../../components/PageHeader";
+import Footer from "../../components/Footer";
+import AppointmentsTable from "../../components/customer/AppointmentsTable";
 import { useSelector } from "react-redux";
-import { useAppointmentsQuery } from "../redux/slices/appointmentsApiSlice";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { useInfosCustomerQuery } from "../../redux/slices/customerApiSlice";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-function BarberShopAppointments() {
+function CustomerAppointments() {
 
     let { userInfo } = useSelector(state => state.auth);
     const [appointments, setAppointments] = useState([]);
 
-    let {data: res, isLoading } = useAppointmentsQuery({token: userInfo.token});
+    let {data: res, isLoading } = useInfosCustomerQuery({token: userInfo.token});
 
     React.useEffect(() => {
         if(res){
-            setAppointments(res.appointment)
+            console.log(res);
+            setAppointments(res.customer.appointments)
         }
     },[res]);
 
     const formatingAppointments = (appointment) => {
-        console.log(appointment)
         if(appointment !== undefined) {
             return appointment.map(ap => {
                 const date = new Date(ap.date)
                 return {
                     id: ap.id,
-                    name: `${ap.customer?.firstName} ${ap.customer?.lastName}`,
+                    name: `${ap.barberShop?.name}`,
                     date,
                     service: ap.service.title,
                     status: ap.status,
                     price: `${ap.service.price} DT`,
-                    avatar: ap.customer.image ? ap.customer.image : '/img/hairstyle.png',
-                    email: ap.customer.email,
+                    avatar: ap.barberShop.logo ? ap.barberShop.logo : '/img/hairstyle.png',
+                    email: ap.barberShop.email,
+                    phone: ap.barberShop.phones.length > 0 ? ap.barberShop.phones.find(el => el.primary === true).phone : ''
                 }
             })
         }
@@ -53,4 +54,4 @@ function BarberShopAppointments() {
     );
 }
 
-export default BarberShopAppointments;
+export default CustomerAppointments;

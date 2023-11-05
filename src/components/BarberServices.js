@@ -20,8 +20,6 @@ function BarberServices({services}) {
                                             </div>
                                         ))
                                     }
-
-
                                 </div>
                             </div>
                         </div>

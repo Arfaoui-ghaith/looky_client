@@ -1,32 +1,30 @@
-import ImageUploader from "../../ImageUploader";
 import React from "react";
 import {useSelector} from "react-redux";
-import {useAddMemberMutation} from "../../../redux/slices/teamApiSlice";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
-import {useUpdateInfosMutation} from "../../../redux/slices/customerApiSlice";
 import {useNavigate} from "react-router-dom";
+import {useUpdateBarberPasswordMutation} from "../../redux/slices/barberApiSlice";
 
-function CustomerPasswordForm(){
+function BarberShopPasswordForm(){
 
     let navigate = useNavigate();
     const [data, setData] = React.useState({});
 
     let { userInfo } = useSelector(state => state.auth);
-    const [updateInfos, { isLoading }] = useUpdateInfosMutation();
+    const [updateBarberPassword, { isLoading }] = useUpdateBarberPasswordMutation();
 
     const submitUpdate  = async (e) => {
         e.preventDefault();
         try {
             if(data.currentPassword === undefined || data.currentPassword === null){
-                toast.error("Customer Current Password Empty!");
+                toast.error("Barber Current Password Empty!");
             }else {
                 if (data.password === data.confirmPassword) {
-                    await updateInfos({body: data, token: userInfo.token}).unwrap();
-                    toast.success("Customer Password Updated Successfully!");
-                    navigate('/customer/profile');
+                    await updateBarberPassword({body: data, token: userInfo.token}).unwrap();
+                    toast.success("Barber Password Updated Successfully!");
+                    navigate('/barber-shop/profile');
                 } else {
-                    toast.error("Customer Password Not Confirmed!");
+                    toast.error("Barber Password Not Confirmed!");
                 }
             }
 
@@ -75,4 +73,4 @@ function CustomerPasswordForm(){
     )
 }
 
-export default CustomerPasswordForm;
+export default BarberShopPasswordForm;

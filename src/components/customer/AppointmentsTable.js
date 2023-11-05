@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import {
     Table,
     TableHeader,
@@ -16,72 +16,39 @@ import {
     User,
     Pagination,
 } from "@nextui-org/react";
-import {PlusIcon} from "./icons/PlusIcon";
-import {VerticalDotsIcon} from "./icons/VerticalDotsIcon";
-import {SearchIcon} from "./icons/SearchIcon";
-import {ChevronDownIcon} from "./icons/ChevronDownIcon";
+import {VerticalDotsIcon} from "../icons/VerticalDotsIcon";
+import {SearchIcon} from "../icons/SearchIcon";
+import {ChevronDownIcon} from "../icons/ChevronDownIcon";
+import {capitalize} from "../utils";
 
-import {capitalize} from "./utils";
-import AddService from "./AddService";
-import {useNavigate} from "react-router-dom";
-import toast from "react-hot-toast";
-import {useDispatch, useSelector} from "react-redux";
-import {useAddServiceMutation, useDeleteServiceMutation} from "../redux/slices/servicesApiSlice";
-import {BeatLoader} from "react-spinners";
-import {Dialog} from "primereact/dialog";
-import { setService, clearService } from "../redux/slices/data";
-import { Button as Btn } from 'primereact/button'
-import EditService from "./EditService";
+const statusColorMap = {
+    confirmed: "success",
+    refused: "danger",
+    waiting: "warning",
+};
 
 const columns = [
-    {name: "ID", uid: "id"},
-    {name: "TITLE", uid: "title", sortable: true},
+    {name: "ID", uid: "id", sortable: true},
+    {name: "SHOP", uid: "name", sortable: true},
+    {name: "DATE", uid: "date", sortable: true},
+    {name: "SERVICE", uid: "service", sortable: true},
     {name: "PRICE", uid: "price", sortable: true},
-    {name: "DESCRIPTION", uid: "description"},
-    {name: "DURATION", uid: "duration", sortable: true},
-    {name: "BARBERSHOPID", uid: "barberShopId"},
-    {name: "GALLERIES", uid: "galleries"},
-    {name: "CREATEDAT", uid: "createdAt", sortable: true},
+    {name: "EMAIL", uid: "email"},
+    {name: "STATUS", uid: "status", sortable: true},
     {name: "ACTIONS", uid: "actions"},
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["title", "price", "duration", "createdAt", "actions"];
+const statusOptions = [
+    {name: "confirmed", uid: "confirmed"},
+    {name: "refused", uid: "refused"},
+    {name: "waiting", uid: "waiting"},
+];
 
-export default function ServicesTable({services}) {
-    let dispatch = useDispatch();
-    const [visibleDialog, setVisibleDialog] = useState(false);
-    const [visibleEdit, setVisibleEdit] = useState(false);
-    let { userInfo } = useSelector(state => state.auth);
-    const [deleteService, { isLoading, isSuccess, error }] = useDeleteServiceMutation();
-    let { service } = useSelector(state => state.data);
-    const submitDeleteService  = async () => {
-        try {
-            const res = await deleteService({id: service.id, token: userInfo.token}).unwrap();
-            console.log(res)
-            dispatch(clearService())
-            toast.success("Service Deleted Successfully!");
-            window.location.reload();
-        }catch (err) {
-            dispatch(clearService())
-            setVisibleDialog(false);
-            toast.error(err?.data?.message);
-            console.error(err);
-        }
-    }
+const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "actions"];
 
-    const footerContent = (
-        <div>
-            <Btn label="No" icon="pi pi-times" onClick={() => setVisibleDialog(false)} className="p-button-text" />
-            <Btn icon="pi pi-check" onClick={() => submitDeleteService()} >
-                {
-                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
-                }
-            </Btn>
-        </div>
-    );
+export default function AppointmentsTable({isLoading, appointments}) {
 
-    const navigate = useNavigate();
-    const [visible, setVisible] = useState(false);
+    console.log(appointments)
 
     const [filterValue, setFilterValue] = React.useState("");
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -89,7 +56,7 @@ export default function ServicesTable({services}) {
     const [statusFilter, setStatusFilter] = React.useState("all");
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [sortDescriptor, setSortDescriptor] = React.useState({
-        column: "createdAt",
+        column: "date",
         direction: "descending",
     });
     const [page, setPage] = React.useState(1);
@@ -103,16 +70,21 @@ export default function ServicesTable({services}) {
     }, [visibleColumns]);
 
     const filteredItems = React.useMemo(() => {
-        let filteredServices = [...services];
+        let filteredAppointments = [...appointments];
 
         if (hasSearchFilter) {
-            filteredServices = filteredServices.filter((service) =>
-                service.title.toLowerCase().includes(filterValue.toLowerCase()) || service.title.toLowerCase().includes(filterValue.toLowerCase()),
+            filteredAppointments = filteredAppointments.filter((appointment) =>
+                appointment.name.toLowerCase().includes(filterValue.toLowerCase()) || appointment.email.toLowerCase().includes(filterValue.toLowerCase()),
+            );
+        }
+        if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
+            filteredAppointments = filteredAppointments.filter((appointment) =>
+                Array.from(statusFilter).includes(appointment.status),
             );
         }
 
-        return filteredServices;
-    }, [services, filterValue, statusFilter]);
+        return filteredAppointments;
+    }, [appointments, filterValue, hasSearchFilter, statusFilter]);
 
 
 
@@ -135,37 +107,30 @@ export default function ServicesTable({services}) {
         });
     }, [sortDescriptor, items]);
 
-    const renderCell = React.useCallback((service, columnKey) => {
-        const cellValue = service[columnKey];
+    const renderCell = React.useCallback((appointment, columnKey) => {
+        const cellValue = appointment[columnKey];
 
         switch (columnKey) {
-            case "title":
+            case "name":
                 return (
                     <User
-                        avatarProps={{radius: "lg", src: service.gallery.length > 0 ? service.gallery[0].image : ''}}
+                        avatarProps={{radius: "lg", src: appointment.avatar}}
+                        description={`${appointment.email}\n${appointment.phone}`}
                         name={cellValue}
-                    >
-                        {service.email}
-                    </User>
+                    />
                 );
-            case "createdAt":
+            case "date":
                 return (
                     <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize mb-0 mt-auto pt-2">{new Date(cellValue).toLocaleDateString("fr-FR")}</p>
-                        <p className="text-bold text-tiny capitalize text-default-400">{`${new Date(service.createdAt).getUTCHours()}h${new Date(service.createdAt).getUTCMinutes()}`}</p>
+                        <p className="text-bold text-small capitalize mb-0 mt-auto pt-2">{cellValue.toLocaleDateString("fr-FR")}</p>
+                        <p className="text-bold text-tiny capitalize text-default-400">{`${appointment.date.getUTCHours()}h${appointment.date.getUTCMinutes()}`}</p>
                     </div>
                 );
-            case "price":
+            case "status":
                 return (
-                    <p className="text-bold text-small capitalize mb-0 mt-auto pt-2" >
-                        {cellValue} TND
-                    </p>
-                );
-            case "duration":
-                return (
-                    <p className="text-bold text-small capitalize mb-0 mt-auto pt-2" >
-                        {cellValue} minutes
-                    </p>
+                    <Chip className="capitalize" color={statusColorMap[appointment.status]} size="sm" variant="flat">
+                        {cellValue}
+                    </Chip>
                 );
             case "actions":
                 return (
@@ -177,9 +142,8 @@ export default function ServicesTable({services}) {
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu>
-                                <DropdownItem key={service.id+"view"} onClick={() => navigate(`/service/${service.id}`)}>View</DropdownItem>
-                                <DropdownItem key={service.id+"edit"} onClick={() => {dispatch(setService({...service})); setVisibleEdit(true);}}>Edit</DropdownItem>
-                                <DropdownItem key={service.id+"delete"} onClick={() => {dispatch(setService({...service})); setVisibleDialog(true);}}>Delete</DropdownItem>
+                                <DropdownItem>View</DropdownItem>
+                                <DropdownItem>Update</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -237,6 +201,24 @@ export default function ServicesTable({services}) {
                         <Dropdown>
                             <DropdownTrigger className="hidden sm:flex">
                                 <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                                    Status
+                                </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu
+                                disallowEmptySelection
+                                aria-label="Table Columns"
+                                closeOnSelect={false}
+                            >
+                                {statusOptions.map((status) => (
+                                    <DropdownItem key={status.uid} className="capitalize">
+                                        {capitalize(status.name)}
+                                    </DropdownItem>
+                                ))}
+                            </DropdownMenu>
+                        </Dropdown>
+                        <Dropdown>
+                            <DropdownTrigger className="hidden sm:flex">
+                                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
                                     Columns
                                 </Button>
                             </DropdownTrigger>
@@ -244,9 +226,6 @@ export default function ServicesTable({services}) {
                                 disallowEmptySelection
                                 aria-label="Table Columns"
                                 closeOnSelect={false}
-                                selectedKeys={visibleColumns}
-                                selectionMode="multiple"
-                                onSelectionChange={setVisibleColumns}
                             >
                                 {columns.map((column) => (
                                     <DropdownItem key={column.uid} className="capitalize">
@@ -255,13 +234,10 @@ export default function ServicesTable({services}) {
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        <Button color="primary" onClick={() => setVisible(!visible)} endContent={<PlusIcon />}>
-                            Add New
-                        </Button>
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
-                    <span className="text-default-400 text-small">Total {services.length} services</span>
+                    <span className="text-default-400 text-small">Total {appointments.length} appointments</span>
                     <label className="flex items-center text-default-400 text-small">
                         Rows per page:
                         <select
@@ -276,15 +252,7 @@ export default function ServicesTable({services}) {
                 </div>
             </div>
         );
-    }, [
-        filterValue,
-        statusFilter,
-        visibleColumns,
-        onRowsPerPageChange,
-        services.length,
-        onSearchChange,
-        hasSearchFilter,
-    ]);
+    }, [filterValue, onSearchChange, statusFilter, visibleColumns, appointments.length, onRowsPerPageChange, onClear]);
 
     const bottomContent = React.useMemo(() => {
         return (
@@ -313,7 +281,7 @@ export default function ServicesTable({services}) {
                 </div>
             </div>
         );
-    }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+    }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
 
     return (
         <div className="m-5" >
@@ -330,6 +298,7 @@ export default function ServicesTable({services}) {
                 topContent={topContent}
                 topContentPlacement="outside"
                 onSortChange={setSortDescriptor}
+                isLoading={isLoading}
             >
                 <TableHeader columns={headerColumns}>
                     {(column) => (
@@ -342,7 +311,7 @@ export default function ServicesTable({services}) {
                         </TableColumn>
                     )}
                 </TableHeader>
-                <TableBody emptyContent={"No services found"} items={sortedItems}>
+                <TableBody emptyContent={"No appointments found"} items={sortedItems}>
                     {(item) => (
                         <TableRow key={item.id}>
                             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
@@ -350,17 +319,6 @@ export default function ServicesTable({services}) {
                     )}
                 </TableBody>
             </Table>
-
-            <AddService onChange={visible=>setVisible(visible)} visible={visible}/>
-            <EditService service={service} onChange={visibleEdit=>setVisibleEdit(visibleEdit)} visible={visibleEdit}/>
-
-            <div className="card flex justify-content-center">
-                <Dialog header="Confirmation" visible={visibleDialog} style={{ width: '30vw' }} onHide={() => setVisibleDialog(false)} footer={footerContent}>
-                    <p className="m-0" style={{ color: "#fff" }}>
-                        Do you want to delete this record?
-                    </p>
-                </Dialog>
-            </div>
         </div>
     );
 }

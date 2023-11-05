@@ -28,6 +28,16 @@ export const customersApiSlice = apiSlice.injectEndpoints({
                 body: data.body
             })
         }),
+        updateCustomerPassword: builder.mutation({
+            query: (data) => ({
+                url: `${CUSTOMERS_URL}/password`,
+                method: 'put',
+                headers: {
+                    'Authorization': data.token,
+                },
+                body: data.body
+            })
+        }),
         updateAvatar: builder.mutation({
             query: (data) => ({
                 url: `${CUSTOMERS_URL}/infos`,
@@ -50,4 +60,11 @@ export const customersApiSlice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useLoginAsCustomerMutation, useUpdateAvatarMutation, useUpdateInfosMutation, useLoginBySocialNetworkMutation, useInfosCustomerQuery } = customersApiSlice;
+export const {
+    useLoginAsCustomerMutation,
+    useUpdateAvatarMutation,
+    useUpdateInfosMutation,
+    useLoginBySocialNetworkMutation,
+    useInfosCustomerQuery,
+    useUpdateCustomerPasswordMutation
+} = customersApiSlice;
