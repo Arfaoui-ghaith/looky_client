@@ -386,22 +386,22 @@ export default function AppointmentsTable({isLoading, appointments}) {
                     </p>
 
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment.name}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment?.name}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment.email}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment?.email}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment.service}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment?.service}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment.price}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment?.price}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment.date)).toLocaleDateString("fr-FR")}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment?.date)).toLocaleDateString("fr-FR")}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment.date)).getUTCHours()}h{(new Date(appointment.date)).getUTCMinutes()}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment?.date)).getUTCHours()}h{(new Date(appointment?.date)).getUTCMinutes()}
                     </p>
                 </Dialog>
             </div>
@@ -413,22 +413,22 @@ export default function AppointmentsTable({isLoading, appointments}) {
                     </p>
 
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment.name}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment?.name}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment.email}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment?.email}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment.service}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment?.service}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment.price}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment?.price}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment.date)).toLocaleDateString("fr-FR")}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment?.date)).toLocaleDateString("fr-FR")}
                     </p>
                     <p className="m-2" style={{ color: "#fff" }}>
-                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment.date)).getUTCHours()}h{(new Date(appointment.date)).getUTCMinutes()}
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment?.date)).getUTCHours()}h{(new Date(appointment?.date)).getUTCMinutes()}
                     </p>
                 </Dialog>
             </div>
