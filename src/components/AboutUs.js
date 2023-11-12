@@ -10,7 +10,10 @@ function AboutUs({ barber }) {
               <div className="d-flex flex-column">
                 <img
                   className="img-fluid w-75 align-self-end"
-                  src={barber.logo.replace('upload/','upload/w_300,h_300,c_scale/')}
+                  src={barber.logo.replace(
+                    "upload/",
+                    "upload/w_300,h_300,c_scale/",
+                  )}
                   alt=""
                 />
                 <div

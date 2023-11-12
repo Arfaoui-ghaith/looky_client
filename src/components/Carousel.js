@@ -1,8 +1,8 @@
 import React from "react";
 
 function Carousel() {
-  const img1 = "img/carousel-1.jpg"
-  const img2 = "img/carousel-2.jpg"
+  const img1 = "img/carousel-1.jpg";
+  const img2 = "img/carousel-2.jpg";
   return (
     <React.Fragment>
       <div
@@ -17,7 +17,7 @@ function Carousel() {
           <div className="carousel-inner">
             <div className="carousel-item active">
               {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-              <img className="w-100" src={img1} alt="Image"/>
+              <img className="w-100" src={img1} alt="Image" />
               <div className="carousel-caption d-flex align-items-center justify-content-center text-start">
                 <div className="mx-sm-5 px-5" style={{ maxWidth: "900px" }}>
                   <h1 className="display-2 text-white text-uppercase mb-4 animated slideInDown">

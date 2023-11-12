@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -72,20 +72,20 @@ function Footer() {
                   <i className="fab fa-twitter" />
                 </Link>
                 <Link
-                    className="btn btn-lg-square btn-dark text-primary m-1"
-                    to=""
+                  className="btn btn-lg-square btn-dark text-primary m-1"
+                  to=""
                 >
                   <i className="fab fa-facebook-f" />
                 </Link>
                 <Link
-                    className="btn btn-lg-square btn-dark text-primary m-1"
-                    to=""
+                  className="btn btn-lg-square btn-dark text-primary m-1"
+                  to=""
                 >
                   <i className="fab fa-youtube" />
                 </Link>
                 <Link
-                    className="btn btn-lg-square btn-dark text-primary m-1"
-                    to=""
+                  className="btn btn-lg-square btn-dark text-primary m-1"
+                  to=""
                 >
                   <i className="fab fa-linkedin-in" />
                 </Link>

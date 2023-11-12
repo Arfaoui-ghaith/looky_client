@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function BarberTeamCard() {
   return (
@@ -18,14 +18,14 @@ function BarberTeamCard() {
             <img className="img-fluid" src="/img/team-1.jpg" alt="" />
             <div className="team-social">
               <Link className="btn btn-square" to="">
-                    <i className="fab fa-facebook-f" />
+                <i className="fab fa-facebook-f" />
               </Link>
-                <Link className="btn btn-square" to="">
-                    <i className="fab fa-twitter" />
-                </Link>
-                <Link className="btn btn-square" to="">
-                    <i className="fab fa-instagram" />
-                </Link>
+              <Link className="btn btn-square" to="">
+                <i className="fab fa-twitter" />
+              </Link>
+              <Link className="btn btn-square" to="">
+                <i className="fab fa-instagram" />
+              </Link>
             </div>
           </div>
           <div className="bg-secondary text-center p-4">

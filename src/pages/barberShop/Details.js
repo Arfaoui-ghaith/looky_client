@@ -33,8 +33,8 @@ function BarberShops() {
     }
   };
 
-  if(isLoading){
-      return <LoadingSpinner isLoading={isLoading} />;
+  if (isLoading) {
+    return <LoadingSpinner isLoading={isLoading} />;
   }
 
   console.log(res);
@@ -74,7 +74,11 @@ function BarberShops() {
       </div>
       {res?.barberShop ? <AboutUs barber={res?.barberShop} /> : ""}
       <BarberShopTeam />
-      {res?.barberShop ? <BarberServices services={res?.barberShop.services} /> : ""}
+      {res?.barberShop ? (
+        <BarberServices services={res?.barberShop.services} />
+      ) : (
+        ""
+      )}
       <FeedBacks />
       <Footer />
     </React.Fragment>
