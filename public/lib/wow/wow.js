@@ -423,7 +423,7 @@
       key: 'vendorSet',
       value: function vendorSet(elem, properties) {
         for (var name in properties) {
-          if (properties.hasOwnProperty(name)) {
+          if (Object.prototype.hasOwnProperty.call(properties, name)) {
             var value = properties[name];
             elem['' + name] = value;
             for (var i = 0; i < this.vendors.length; i++) {

@@ -670,7 +670,7 @@ var DateTimePicker = function ($, moment) {
             keyState[currentKey] = pressed;
 
             for (index in keyState) {
-                if (keyState.hasOwnProperty(index) && keyState[index] === pressed) {
+                if (Object.prototype.hasOwnProperty.call(keyState, index) && keyState[index] === pressed) {
                     pressedKeys.push(index);
                     if (parseInt(index, 10) !== currentKey) {
                         pressedModifiers[index] = true;
@@ -679,7 +679,7 @@ var DateTimePicker = function ($, moment) {
             }
 
             for (index in this._options.keyBinds) {
-                if (this._options.keyBinds.hasOwnProperty(index) && typeof this._options.keyBinds[index] === 'function') {
+                if (Object.prototype.hasOwnProperty.call(this._options.keyBinds, index) && typeof this._options.keyBinds[index] === 'function') {
                     keyBindKeys = index.split(' ');
                     if (keyBindKeys.length === pressedKeys.length && KeyMap[currentKey] === keyBindKeys[keyBindKeys.length - 1]) {
                         allModifiersPressed = true;
