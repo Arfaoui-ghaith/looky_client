@@ -20,8 +20,7 @@ export default function EditServiceForm({ service }) {
   const [text, setText] = useState("");
 
   let { userInfo } = useSelector((state) => state.auth);
-  const [addService, { isLoading }] =
-    useUpdateServiceMutation();
+  const [addService, { isLoading }] = useUpdateServiceMutation();
 
   const submitUpdateService = async (e) => {
     data.description = text;
@@ -101,11 +100,7 @@ export default function EditServiceForm({ service }) {
           </div>
           <div className="p-inputgroup mb-2">
             <Editor
-              value={
-                data.description !== undefined
-                  ? data.description
-                  : ""
-              }
+              value={data.description !== undefined ? data.description : ""}
               onTextChange={(e) => setText(e.htmlValue)}
               style={{ height: "320px" }}
             />
