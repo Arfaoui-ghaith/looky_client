@@ -81,7 +81,7 @@ function BarberShopSignInForm() {
             Check me out
           </label>
         </div>
-        <a href="">Forgot Password</a>
+        <Link to="">Forgot Password</Link>
       </div>
       <button
         type="submit"

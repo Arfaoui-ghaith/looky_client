@@ -116,18 +116,18 @@ function CustomerSignUpForm() {
 
         <div className="separator">OR</div>
         <div className="d-flex justify-content-center pt-1 m-n1">
-          <a className="btn btn-lg-square btn-dark text-primary m-1" href="">
+          <Link className="btn btn-lg-square btn-dark text-primary m-1" to="">
             <i className="fab fa-twitter" />
-          </a>
-          <a className="btn btn-lg-square btn-dark text-primary m-1" href="">
+          </Link>
+          <Link className="btn btn-lg-square btn-dark text-primary m-1" to="">
             <i className="fab fa-facebook-f" />
-          </a>
-          <a className="btn btn-lg-square btn-dark text-primary m-1" href="">
+          </Link>
+          <Link className="btn btn-lg-square btn-dark text-primary m-1" to="">
             <i className="fab fa-youtube" />
-          </a>
-          <a className="btn btn-lg-square btn-dark text-primary m-1" href="">
+          </Link>
+          <Link className="btn btn-lg-square btn-dark text-primary m-1" to="">
             <i className="fab fa-linkedin-in" />
-          </a>
+          </Link>
         </div>
         <p className="text-center mt-3">
           Already have an Account? <Link to="/sign-in">Sign In</Link>

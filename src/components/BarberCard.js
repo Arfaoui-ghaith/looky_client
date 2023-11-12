@@ -17,7 +17,7 @@ function BarberCard({ barber }) {
       >
         <div className="team-item">
           <div className="team-img position-relative overflow-hidden">
-            <img className="img-fluid" src={barber.logo} alt="" />
+            <img className="img-fluid" src={barber.logo.replace('upload/','upload/w_500,h_600,c_scale/')} alt="" />
             <div className="team-social">
               <button
                 className="btn btn-primary py-2 px-lg-4 d-none d-lg-block"

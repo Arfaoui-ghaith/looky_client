@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {BeatLoader} from "react-spinners";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
 import { InputText } from 'primereact/inputtext';
 import {Sidebar} from "primereact/sidebar";
 import {Editor} from "primereact/editor";
@@ -10,11 +9,11 @@ import {useAddServiceMutation} from "../redux/slices/servicesApiSlice";
 import {useSelector} from "react-redux";
 import MultiUploader from "./MultiUploader";
 
-function AddService({barber,visible,onChange}) {
+function AddService({visible,onChange}) {
 
     const [data, setData] = React.useState({description: ''});
     const [text, setText] = useState('');
-    const [galleryCondition, setGalleryCondition] = useState(!visible);
+    //const [galleryCondition, setGalleryCondition] = useState(!visible);
     const [serviceId, setServiceId] = useState();
 
     let { userInfo } = useSelector(state => state.auth);
@@ -28,7 +27,7 @@ function AddService({barber,visible,onChange}) {
             const res = await addService({body: data, token: userInfo.token}).unwrap();
             console.log(res)
             setServiceId(res.service.id)
-            setGalleryCondition(true);
+            //setGalleryCondition(true);
             toast.success("Service Added Successfully!");
         }catch (err) {
             toast.error(err?.data?.message);
@@ -37,7 +36,7 @@ function AddService({barber,visible,onChange}) {
     }
 
     useEffect(() => {
-        setGalleryCondition(!visible)
+        //setGalleryCondition(!visible)
     },[visible])
 
     const change = (index,value) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Footer() {
   return (
@@ -32,21 +33,21 @@ function Footer() {
             </div>
             <div className="col-lg-4 col-md-6">
               <h4 className="text-uppercase mb-4">Quick Links</h4>
-              <a className="btn btn-link" href="">
+              <Link className="btn btn-link" to="">
                 About Us
-              </a>
-              <a className="btn btn-link" href="">
+              </Link>
+              <Link className="btn btn-link" to="">
                 Contact Us
-              </a>
-              <a className="btn btn-link" href="">
+              </Link>
+              <Link className="btn btn-link" to="">
                 Our Services
-              </a>
-              <a className="btn btn-link" href="">
+              </Link>
+              <Link className="btn btn-link" to="">
                 Terms & Condition
-              </a>
-              <a className="btn btn-link" href="">
+              </Link>
+              <Link className="btn btn-link" to="">
                 Support
-              </a>
+              </Link>
             </div>
             <div className="col-lg-4 col-md-6">
               <h4 className="text-uppercase mb-4">Newsletter</h4>
@@ -64,30 +65,30 @@ function Footer() {
                 </button>
               </div>
               <div className="d-flex pt-1 m-n1">
-                <a
+                <Link
                   className="btn btn-lg-square btn-dark text-primary m-1"
-                  href=""
+                  to=""
                 >
                   <i className="fab fa-twitter" />
-                </a>
-                <a
-                  className="btn btn-lg-square btn-dark text-primary m-1"
-                  href=""
+                </Link>
+                <Link
+                    className="btn btn-lg-square btn-dark text-primary m-1"
+                    to=""
                 >
                   <i className="fab fa-facebook-f" />
-                </a>
-                <a
-                  className="btn btn-lg-square btn-dark text-primary m-1"
-                  href=""
+                </Link>
+                <Link
+                    className="btn btn-lg-square btn-dark text-primary m-1"
+                    to=""
                 >
                   <i className="fab fa-youtube" />
-                </a>
-                <a
-                  className="btn btn-lg-square btn-dark text-primary m-1"
-                  href=""
+                </Link>
+                <Link
+                    className="btn btn-lg-square btn-dark text-primary m-1"
+                    to=""
                 >
                   <i className="fab fa-linkedin-in" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -97,16 +98,16 @@ function Footer() {
             <div className="row">
               <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 &copy;{" "}
-                <a className="border-bottom" href="#">
+                <Link className="border-bottom" to="/">
                   LOOKY
-                </a>
+                </Link>
                 , All Right Reserved.
               </div>
               <div className="col-md-6 text-center text-md-end">
                 Designed By{" "}
-                <a className="border-bottom" href="https://htmlcodex.com">
+                <Link className="border-bottom" to="https://htmlcodex.com">
                   HTML Codex
-                </a>
+                </Link>
               </div>
             </div>
           </div>

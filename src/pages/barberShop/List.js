@@ -43,7 +43,7 @@ function List() {
             </div>
           </div>
           <div className="row g-4">
-            {res?.barbers.map((b) => (
+            {res?.barberShops.map((b) => (
               <BarberCard key={b.id} barber={b} />
             ))}
           </div>

@@ -33,9 +33,14 @@ function BarberShops() {
     }
   };
 
+  if(isLoading){
+      return <LoadingSpinner isLoading={isLoading} />;
+  }
+
+  console.log(res);
+
   return (
     <React.Fragment>
-      <LoadingSpinner isLoading={isLoading} />
       <NavBar />
       <div
         className="container-fluid page-header py-5 mb-4 wow fadeIn"
@@ -43,10 +48,10 @@ function BarberShops() {
       >
         <div className="container text-center py-5">
           <h1 className="display-3 text-white text-uppercase mb-3 animated slideInDown">
-            {res?.barber ? res?.barber.name : ""}
+            {res?.barberShop ? res?.barberShop.name : ""}
           </h1>
           <nav aria-label="breadcrumb animated slideInDown">
-            {res?.barber !== undefined ? (
+            {res?.barberShop !== undefined ? (
               <div className="breadcrumb justify-content-center text-uppercase mb-0">
                 <button
                   className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block"
@@ -56,7 +61,7 @@ function BarberShops() {
                   <i className="fa fa-arrow-right ms-3" />
                 </button>
                 <BookAppointment
-                  barber={res?.barber}
+                  barber={res?.barberShop}
                   onChange={(visible) => setVisible(visible)}
                   visible={visible}
                 />
@@ -67,9 +72,9 @@ function BarberShops() {
           </nav>
         </div>
       </div>
-      {res?.barber ? <AboutUs barber={res?.barber} /> : ""}
+      {res?.barberShop ? <AboutUs barber={res?.barberShop} /> : ""}
       <BarberShopTeam />
-      {res?.barber ? <BarberServices services={res?.barber.services} /> : ""}
+      {res?.barberShop ? <BarberServices services={res?.barberShop.services} /> : ""}
       <FeedBacks />
       <Footer />
     </React.Fragment>

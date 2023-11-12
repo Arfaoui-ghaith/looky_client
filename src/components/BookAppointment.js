@@ -13,7 +13,7 @@ function BookAppointment({barber,visible,onChange}) {
     const [data, setData] = React.useState({barberShopId: barber.id});
     const [time, setTime] = React.useState();
 
-    const [bookAppointment, { isLoading, error }] = useBookAppointmentMutation();
+    const [bookAppointment, { isLoading }] = useBookAppointmentMutation();
 
     let { userInfo } = useSelector(state => state.auth);
 
@@ -44,7 +44,7 @@ function BookAppointment({barber,visible,onChange}) {
         })
         e.preventDefault();
         try {
-            const res = await bookAppointment({
+            await bookAppointment({
                 body: {...data, date: data.date.toISOString()},
                 token: userInfo.token
             }).unwrap();
@@ -90,11 +90,11 @@ function BookAppointment({barber,visible,onChange}) {
                     <label htmlFor="floatingSelect">Works with selects</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <Calendar placeholder="Birth Date" style={calendarStyle} value={data.date} onChange={(e) => change("date",e.target.value)} showIcon />
+                    <Calendar placeholder="Date" style={calendarStyle} value={data.date} onChange={(e) => change("date",e.target.value)} showIcon />
                 </div>
                 { data.date !== undefined ?
                 <div className="form-floating mb-3">
-                    <Calendar placeholder="Birth Date" style={calendarStyle} value={time} onChange={(e) => { change("date",dateFix(e.target.value)); setTime(e.target.value);}} timeOnly/>
+                    <Calendar placeholder="Time" style={calendarStyle} value={time} onChange={(e) => { change("date",dateFix(e.target.value)); setTime(e.target.value);}} timeOnly/>
                 </div> : ""
                 }
             </Dialog>

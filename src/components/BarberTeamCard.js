@@ -1,7 +1,7 @@
 import React from "react";
-import BarberCard from "./BarberCard";
+import {Link} from "react-router-dom";
 
-function BarberTeamCard({ image, name }) {
+function BarberTeamCard() {
   return (
     <React.Fragment>
       <div
@@ -17,15 +17,15 @@ function BarberTeamCard({ image, name }) {
           <div className="team-img position-relative overflow-hidden">
             <img className="img-fluid" src="/img/team-1.jpg" alt="" />
             <div className="team-social">
-              <a className="btn btn-square" href="">
-                <i className="fab fa-facebook-f" />
-              </a>
-              <a className="btn btn-square" href="">
-                <i className="fab fa-twitter" />
-              </a>
-              <a className="btn btn-square" href="">
-                <i className="fab fa-instagram" />
-              </a>
+              <Link className="btn btn-square" to="">
+                    <i className="fab fa-facebook-f" />
+              </Link>
+                <Link className="btn btn-square" to="">
+                    <i className="fab fa-twitter" />
+                </Link>
+                <Link className="btn btn-square" to="">
+                    <i className="fab fa-instagram" />
+                </Link>
             </div>
           </div>
           <div className="bg-secondary text-center p-4">

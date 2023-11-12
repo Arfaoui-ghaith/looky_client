@@ -20,17 +20,17 @@ export default function EditServiceForm({ service }) {
   const [text, setText] = useState("");
 
   let { userInfo } = useSelector((state) => state.auth);
-  const [addService, { isLoading, isSuccess, error }] =
+  const [addService, { isLoading }] =
     useUpdateServiceMutation();
 
   const submitUpdateService = async (e) => {
     data.description = text;
-    if (data.description == "") {
+    if (data.description === "") {
       data.description = service.description;
     }
     e.preventDefault();
     try {
-      const res = await addService({
+      await addService({
         body: data,
         id: service.id,
         token: userInfo.token,
@@ -102,7 +102,7 @@ export default function EditServiceForm({ service }) {
           <div className="p-inputgroup mb-2">
             <Editor
               value={
-                data.description !== undefined || data.description !== null
+                data.description !== undefined
                   ? data.description
                   : ""
               }

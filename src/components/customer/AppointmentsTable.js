@@ -70,9 +70,9 @@ export default function AppointmentsTable({isLoading, appointments}) {
 
     const showDialog = () => {
         if (selectedAppointment?.status === "waiting") {
-            setVisibleFeedbackDialog(true);
-        }else {
             setVisibleFeedbackUnavailableDialog(true);
+        }else {
+            setVisibleFeedbackDialog(true);
         }
     }
 
