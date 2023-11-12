@@ -78,19 +78,19 @@ function AddTeamMember({barber,visible,onChange}) {
             </div>
             <div className="p-inputgroup mb-2">
                 <span className="p-inputgroup-addon" style={{color: '#fff', background: "#EB1616", border: 'none'}}>
-                    <i className="pi pi-facebook"></i>
+                    <i className="pi pi-facebook" />
                 </span>
                 <InputText placeholder="Facebook" />
             </div>
             <div className="p-inputgroup mb-2">
                 <span className="p-inputgroup-addon" style={{color: '#fff', background: "#EB1616", border: 'none'}}>
-                    <i className="pi pi-youtube"></i>
+                    <i className="pi pi-youtube" />
                 </span>
                 <InputText placeholder="Youtube" />
             </div>
             <div className="p-inputgroup mb-4">
                 <span className="p-inputgroup-addon" style={{color: '#fff', background: "#EB1616", border: 'none'}}>
-                    <i className="pi pi-instagram"></i>
+                    <i className="pi pi-instagram" />
                 </span>
                 <InputText placeholder="Instagram" />
             </div>

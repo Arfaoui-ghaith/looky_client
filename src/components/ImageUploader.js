@@ -31,11 +31,10 @@ function ImageUploader({f="https://i.ibb.co/jVxWHz3/hairstyle.png", onChange}) {
                         right: "0",
                         textAlign: "center",
                         margin: "auto"
-                    }}></i></label>
+                    }} /></label>
                 </div>
                 <div className="avatar-preview">
-                    <div id="imagePreview" style={{backgroundImage: `url(${image})`}}>
-                    </div>
+                    <div id="imagePreview" style={{backgroundImage: `url(${image})`}} />
                 </div>
             </div>
         </React.Fragment>

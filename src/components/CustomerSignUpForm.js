@@ -47,7 +47,7 @@ function CustomerSignUpForm() {
             <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                 <div className="d-flex align-items-center justify-content-between mb-3">
                     <Link to="/" className="">
-                        <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                        <h3 className="text-primary"><i className="fa fa-cut me-2" />LOOKY</h3>
                     </Link>
                     <h3>Sign Up</h3>
                 </div>
@@ -83,13 +83,13 @@ function CustomerSignUpForm() {
                 <div className="separator">OR</div>
                 <div className="d-flex justify-content-center pt-1 m-n1">
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-twitter"></i></a>
+                        className="fab fa-twitter" /></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-facebook-f"></i></a>
+                        className="fab fa-facebook-f" /></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-youtube"></i></a>
+                        className="fab fa-youtube" /></a>
                     <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                        className="fab fa-linkedin-in"></i></a>
+                        className="fab fa-linkedin-in" /></a>
                 </div>
                 <p className="text-center mt-3">Already have an Account? <Link to="/sign-in">Sign In</Link></p>
             </div>

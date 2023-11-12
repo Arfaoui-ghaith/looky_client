@@ -44,7 +44,7 @@ function BarberShopSignInForm() {
         <React.Fragment>
             <div className="d-flex align-items-center justify-content-between mb-1">
                 <Link to="/" className="">
-                    <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                    <h3 className="text-primary"><i className="fa fa-cut me-2" />LOOKY</h3>
                 </Link>
 
             </div>

@@ -43,7 +43,7 @@ function BarberShops() {
                             <div className="breadcrumb justify-content-center text-uppercase mb-0">
                                 <button
                                    className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block" onClick={() => openBookAppointment()}>Appointment<i
-                                    className="fa fa-arrow-right ms-3"></i></button>
+                                    className="fa fa-arrow-right ms-3" /></button>
                                 <BookAppointment barber={res?.barber} onChange={visible=>setVisible(visible)} visible={visible}/>
                             </div> : ""
                         }

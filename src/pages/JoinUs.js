@@ -25,7 +25,7 @@ function JoinUs() {
 
                                     </div>
                                     <Link to="/sign-up/customer" className="btn btn-square rounded-0"><i
-                                        className="fa fa-arrow-right text-primary"></i></Link>
+                                        className="fa fa-arrow-right text-primary" /></Link>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-6 wow fadeInUp m-2" data-wow-delay="0.1s"
@@ -43,7 +43,7 @@ function JoinUs() {
 
                                     </div>
                                     <Link to="/sign-up/barber" className="btn btn-square rounded-0"><i
-                                        className="fa fa-arrow-right text-primary"></i></Link>
+                                        className="fa fa-arrow-right text-primary" /></Link>
                                 </div>
                             </div>
                         </div>

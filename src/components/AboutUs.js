@@ -11,7 +11,7 @@ function AboutUs({barber}) {
                             <div className="d-flex flex-column">
                                 <img className="img-fluid w-75 align-self-end" src={barber.logo} alt=""/>
                                     <div className="w-50 bg-secondary p-5" style={{marginTop: "-25%"}}>
-                                        <h1 className="text-uppercase text-primary mb-3 text-center">4.5 <i className="fa fa-star"></i></h1>
+                                        <h1 className="text-uppercase text-primary mb-3 text-center">4.5 <i className="fa fa-star" /></h1>
                                         <h2 className="text-uppercase mb-0">125 Rates</h2>
                                     </div>
                             </div>

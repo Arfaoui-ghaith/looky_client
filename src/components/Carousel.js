@@ -14,7 +14,7 @@ function Carousel() {
                                         <h1 className="display-2 text-white text-uppercase mb-4 animated slideInDown">We
                                             Will Keep You An Awesome Look</h1>
                                         <button className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Get Started<i
-                                            className="fa fa-arrow-right ms-3"></i></button>
+                                            className="fa fa-arrow-right ms-3" /></button>
                                     </div>
                                 </div>
                         </div>
@@ -26,19 +26,19 @@ function Carousel() {
                                         <h1 className="display-2 text-white text-uppercase mb-4 animated slideInDown">Luxury
                                             Haircut at Affordable Price</h1>
                                         <button className="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Get Started<i
-                                            className="fa fa-arrow-right ms-3"></i></button>
+                                            className="fa fa-arrow-right ms-3" /></button>
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <button className="carousel-control-prev" type="button" data-bs-target="#header-carousel"
                             data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="carousel-control-prev-icon" aria-hidden="true" />
                         <span className="visually-hidden">Previous</span>
                     </button>
                     <button className="carousel-control-next" type="button" data-bs-target="#header-carousel"
                             data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="carousel-control-next-icon" aria-hidden="true" />
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>

@@ -59,7 +59,7 @@ function CustomerSignInForm() {
         <React.Fragment>
                 <div className="d-flex align-items-center justify-content-between mb-1">
                     <Link to="/" className="">
-                        <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                        <h3 className="text-primary"><i className="fa fa-cut me-2" />LOOKY</h3>
                     </Link>
 
                 </div>
@@ -91,7 +91,7 @@ function CustomerSignInForm() {
                         onReject={(err) => toast.error("Try Again Later")}
                     >
                     <button className="btn btn-lg-square btn-dark text-primary m-1" ><i
-                        className="fab fa-facebook-f"></i></button>
+                        className="fab fa-facebook-f" /></button>
                     </LoginSocialFacebook>
                     <LoginSocialGoogle
                         client_id={process.env.REACT_APP_GG_APP_ID || ''}
@@ -102,7 +102,7 @@ function CustomerSignInForm() {
                         onReject={(err) => toast.error("Try Again Later")}
                     >
                         <button className="btn btn-lg-square btn-dark text-primary m-1"><i
-                            className="fab fa-google"></i></button>
+                            className="fab fa-google" /></button>
                     </LoginSocialGoogle>
                     <LoginSocialInstagram
                         client_id={process.env.REACT_APP_INSTAGRAM_APP_ID || ''}
@@ -111,7 +111,7 @@ function CustomerSignInForm() {
                         onResolve={(res)=>signInBySocialNetwork({email: res.data.email})}
                         onReject={(err) => toast.error("Try Again Later")}>
                     <button className="btn btn-lg-square btn-dark text-primary m-1"><i
-                        className="fab fa-instagram"></i></button>
+                        className="fab fa-instagram" /></button>
                     </LoginSocialInstagram>
                 </div>
                 <p className="text-center mb-0">Don't have an Account? <Link to="/sign-up/customer">Sign Up</Link></p>

@@ -16,7 +16,7 @@ function AboutService({service}) {
                         <div className="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                             <p className="d-inline-block bg-secondary text-primary py-1 px-4">Details</p>
                             <h1 className="text-uppercase mb-4">{service?.title}</h1>
-                            <div dangerouslySetInnerHTML={{__html: service?.description}}></div>
+                            <div dangerouslySetInnerHTML={{__html: service?.description}} />
                             <div className="row g-4">
                                 <div className="col-md-6">
                                     <h3 className="text-uppercase mb-1">{service?.price} TND</h3>

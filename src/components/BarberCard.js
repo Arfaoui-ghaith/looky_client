@@ -12,12 +12,12 @@ function BarberCard({barber}) {
                     <div className="team-img position-relative overflow-hidden">
                         <img className="img-fluid" src={barber.logo} alt=""/>
                             <div className="team-social">
-                                <button className="btn btn-primary py-2 px-lg-4 d-none d-lg-block" onClick={()=>navigate(`/barber-shops/${barber.id}`)}>Appointment<i className="fa fa-arrow-right ms-3"></i></button>
+                                <button className="btn btn-primary py-2 px-lg-4 d-none d-lg-block" onClick={()=>navigate(`/barber-shops/${barber.id}`)}>Appointment<i className="fa fa-arrow-right ms-3" /></button>
                             </div>
                     </div>
                     <div className="bg-secondary text-center p-4">
                         <h5 className="text-uppercase">{barber.name}</h5>
-                        <span className="text-primary">4.5 <i className="fa fa-star"></i></span>
+                        <span className="text-primary">4.5 <i className="fa fa-star" /></span>
                     </div>
                 </div>
             </div>

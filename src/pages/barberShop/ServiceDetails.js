@@ -26,7 +26,7 @@ function ServiceDetails() {
             <FeedBacks/>
             <Footer/>
             <span href="#" className="btn btn-primary btn-lg-square back-to-top"><i
-                className="bi bi-arrow-up"></i></span>
+                className="bi bi-arrow-up" /></span>
         </React.Fragment>
     );
 }

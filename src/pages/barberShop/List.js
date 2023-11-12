@@ -30,7 +30,7 @@ function List() {
                                     placeholder="Search"/>
                                     <button type="button"
                                             className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
-                                        <i className="bi bi-search"></i>
+                                        <i className="bi bi-search" />
                                     </button>
                                 </div>
                             </div>

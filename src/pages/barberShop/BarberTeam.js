@@ -130,7 +130,7 @@ function BarberTeam() {
                                             dispatch(setMember(member));
                                             setVisibleUpdate(true);
                                         }}>
-                                            <i className="fa fa-cog"></i>
+                                            <i className="fa fa-cog" />
                                         </Btn>
                                         <Btn className="btn btn-square" onClick={(e) => confirm(e,member)}>
                                             <i className="fa fa-trash" />

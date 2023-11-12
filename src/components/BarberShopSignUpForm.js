@@ -49,7 +49,7 @@ function BarberShopSignUpForm() {
             <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                 <div className="d-flex align-items-center justify-content-between">
                     <Link to="/" className="">
-                        <h3 className="text-primary"><i className="fa fa-cut me-2"></i>LOOKY</h3>
+                        <h3 className="text-primary"><i className="fa fa-cut me-2" />LOOKY</h3>
                     </Link>
                     <h3>Sign Up</h3>
                 </div>

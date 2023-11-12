@@ -10,19 +10,19 @@ function Footer() {
                             <h4 className="text-uppercase mb-4">Get In Touch</h4>
                             <div className="d-flex align-items-center mb-2">
                                 <div className="btn-square bg-dark flex-shrink-0 me-3">
-                                    <span className="fa fa-map-marker-alt text-primary"></span>
+                                    <span className="fa fa-map-marker-alt text-primary" />
                                 </div>
                                 <span>123 Street, New York, USA</span>
                             </div>
                             <div className="d-flex align-items-center mb-2">
                                 <div className="btn-square bg-dark flex-shrink-0 me-3">
-                                    <span className="fa fa-phone-alt text-primary"></span>
+                                    <span className="fa fa-phone-alt text-primary" />
                                 </div>
                                 <span>+012 345 67890</span>
                             </div>
                             <div className="d-flex align-items-center">
                                 <div className="btn-square bg-dark flex-shrink-0 me-3">
-                                    <span className="fa fa-envelope-open text-primary"></span>
+                                    <span className="fa fa-envelope-open text-primary" />
                                 </div>
                                 <span>info@example.com</span>
                             </div>
@@ -46,13 +46,13 @@ function Footer() {
                             </div>
                             <div className="d-flex pt-1 m-n1">
                                 <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                                    className="fab fa-twitter"></i></a>
+                                    className="fab fa-twitter" /></a>
                                 <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                                    className="fab fa-facebook-f"></i></a>
+                                    className="fab fa-facebook-f" /></a>
                                 <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                                    className="fab fa-youtube"></i></a>
+                                    className="fab fa-youtube" /></a>
                                 <a className="btn btn-lg-square btn-dark text-primary m-1" href=""><i
-                                    className="fab fa-linkedin-in"></i></a>
+                                    className="fab fa-linkedin-in" /></a>
                             </div>
                         </div>
                     </div>

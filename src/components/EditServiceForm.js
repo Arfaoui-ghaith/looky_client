@@ -83,7 +83,7 @@ export default function EditServiceForm({service}) {
                 <TabPanel leftIcon="pi pi-images mr-2" header="Gallery" style={{background: 'none'}}>
                     <div className="card xl:flex xl:justify-content-center">
                         <MultiUploader className="mb-2" onChange={(e)=>e} visible={true} serviceId={service.id}/>
-                        <GalleryList images={service.gallery} ></GalleryList>
+                        <GalleryList images={service.gallery}  />
                     </div>
                 </TabPanel>
             </TabView>
