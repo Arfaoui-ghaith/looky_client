@@ -1694,7 +1694,7 @@
 	 */
 	$.fn.owlCarousel.Constructor = Owl;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * AutoRefresh Plugin
@@ -1806,7 +1806,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.AutoRefresh = AutoRefresh;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Lazy Plugin
@@ -1942,7 +1942,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Lazy = Lazy;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * AutoHeight Plugin
@@ -2040,7 +2040,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.AutoHeight = AutoHeight;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Video Plugin
@@ -2155,7 +2155,7 @@
 					} else {
 						return 'youtube';
 					}
-				})(),
+				}()),
 				id = target.attr('data-vimeo-id') || target.attr('data-youtube-id') || target.attr('data-vzaar-id'),
 				width = target.attr('data-width') || this._core.settings.videoWidth,
 				height = target.attr('data-height') || this._core.settings.videoHeight,
@@ -2360,7 +2360,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Video = Video;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Animate Plugin
@@ -2482,7 +2482,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Animate = Animate;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Autoplay Plugin
@@ -2682,7 +2682,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.autoplay = Autoplay;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Navigation Plugin
@@ -3065,7 +3065,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Navigation = Navigation;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Hash Plugin
@@ -3188,7 +3188,7 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Hash = Hash;
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));
 
 /**
  * Support Plugin
@@ -3272,4 +3272,4 @@
 		$.support.transform3d = tests.csstransforms3d();
 	}
 
-})(window.Zepto || window.jQuery, window, document);
+}(window.Zepto || window.jQuery, window, document));

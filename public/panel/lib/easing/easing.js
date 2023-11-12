@@ -16,7 +16,7 @@
 	} else {
 		factory(jQuery);
 	}
-})(function($){
+}(function($){
 
 // Preserve the original jQuery "swing" easing as "jswing"
 if (typeof $.easing !== 'undefined') {
@@ -165,4 +165,4 @@ $.extend( $.easing,
 	}
 });
 
-});
+}));

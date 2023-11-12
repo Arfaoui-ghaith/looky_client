@@ -16,7 +16,7 @@
     factory(mod, mod.exports);
     global.WOW = mod.exports;
   }
-})(this, function (module, exports) {
+}(this, function (module, exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -31,7 +31,7 @@
     }
   }
 
-  var _createClass = function () {
+  var _createClass = (function () {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -47,7 +47,7 @@
       if (staticProps) defineProperties(Constructor, staticProps);
       return Constructor;
     };
-  }();
+  }());
 
   function isIn(needle, haystack) {
     return haystack.indexOf(needle) >= 0;
@@ -135,7 +135,7 @@
   }
 
   // Minimalistic WeakMap shim, just in case.
-  var WeakMap = window.WeakMap || window.MozWeakMap || function () {
+  var WeakMap = window.WeakMap || window.MozWeakMap || (function () {
     function WeakMap() {
       _classCallCheck(this, WeakMap);
 
@@ -171,10 +171,10 @@
     }]);
 
     return WeakMap;
-  }();
+  }());
 
   // Dummy MutationObserver, to avoid raising exceptions.
-  var MutationObserver = window.MutationObserver || window.WebkitMutationObserver || window.MozMutationObserver || (_temp = _class = function () {
+  var MutationObserver = window.MutationObserver || window.WebkitMutationObserver || window.MozMutationObserver || (_temp = _class = (function () {
     function MutationObserver() {
       _classCallCheck(this, MutationObserver);
 
@@ -190,7 +190,7 @@
     }]);
 
     return MutationObserver;
-  }(), _class.notSupported = true, _temp);
+  }()), _class.notSupported = true, _temp);
 
   // getComputedStyle shim, from http://stackoverflow.com/a/21797294
   var getComputedStyle = window.getComputedStyle || function getComputedStyle(el) {
@@ -212,7 +212,7 @@
     };
   };
 
-  var WOW = function () {
+  var WOW = (function () {
     function WOW() {
       var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -229,7 +229,7 @@
         resetAnimation: true
       };
 
-      this.animate = function animateFactory() {
+      this.animate = (function animateFactory() {
         if ('requestAnimationFrame' in window) {
           return function (callback) {
             return window.requestAnimationFrame(callback);
@@ -238,7 +238,7 @@
         return function (callback) {
           return callback();
         };
-      }();
+      }());
 
       this.vendors = ['moz', 'webkit'];
 
@@ -535,8 +535,8 @@
     }]);
 
     return WOW;
-  }();
+  }());
 
   exports.default = WOW;
   module.exports = exports['default'];
-});
+}));
