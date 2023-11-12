@@ -1,6 +1,0 @@
-[[analyzers]]  
-name = "python"  
-enabled = true  
-dependency_file_paths = [  
-  "node_modules"
-]
