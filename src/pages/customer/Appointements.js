@@ -34,7 +34,8 @@ function CustomerAppointments() {
                     price: `${ap.service.price} DT`,
                     avatar: ap.barberShop.logo ? ap.barberShop.logo : '/img/hairstyle.png',
                     email: ap.barberShop.email,
-                    phone: ap.barberShop.phones.length > 0 ? ap.barberShop.phones.find(el => el.primary === true).phone : ''
+                    phone: ap.barberShop.phones.length > 0 ? ap.barberShop.phones.find(el => el.primary === true).phone : '',
+                    data: ap
                 }
             })
         }

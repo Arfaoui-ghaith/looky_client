@@ -4,11 +4,33 @@ const BARVERS_URL = "/barberShops";
 
 export const barbersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+        getBarbers: builder.query({
+            query: (data) => ({
+                url: `${BARVERS_URL}/`,
+                method: 'get'
+            })
+        }),
         loginAsBarber: builder.mutation({
             query: (data) => ({
                 url: `${BARVERS_URL}/signin`,
                 method: 'post',
                 body: data
+            })
+        }),
+        signUpAsBarber: builder.mutation({
+            query: (data) => ({
+                url: `${BARVERS_URL}/signup`,
+                method: 'post',
+                body: data
+            })
+        }),
+        getInfosForPublic: builder.query({
+            query: (data) => ({
+                url: `${BARVERS_URL}/public/${data.id}`,
+                method: 'get',
+                headers: {
+                    'Authorization': data.token,
+                }
             })
         }),
         infos: builder.query({
@@ -54,7 +76,10 @@ export const barbersApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
+    useGetBarbersQuery,
     useLoginAsBarberMutation,
+    useSignUpAsBarberMutation,
+    useGetInfosForPublicQuery,
     useInfosQuery,
     useUpdateBarberAvatarMutation,
     useUpdateBarberPasswordMutation,

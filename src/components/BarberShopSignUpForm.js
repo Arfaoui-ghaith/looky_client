@@ -1,18 +1,19 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import ImageUploader from "./ImageUploader";
-import {signUpAsBarber} from "../services/authService";
-import {updateBarberLogo} from "../services/barberShopService";
 import toast from "react-hot-toast";
 import {BeatLoader} from "react-spinners";
+import {useSignUpAsBarberMutation, useUpdateBarberAvatarMutation} from "../redux/slices/barberApiSlice";
 
 function BarberShopSignUpForm() {
     let navigate = useNavigate();
 
     const [data, setData] = React.useState({});
-    const [loading, setLoading] = React.useState(false);
     const [file, setFile] = React.useState(new FormData());
 
+
+    const [signUpAsBarber, { isLoading }] = useSignUpAsBarberMutation();
+    const [updateBarberAvatar] = useUpdateBarberAvatarMutation();
 
     const change = (index,value) => {
         if(value === ""){
@@ -26,24 +27,20 @@ function BarberShopSignUpForm() {
         }
     }
 
-    const signUp = async() => {
-        setLoading(true);
-        if(file.has("image")) {
-            const res = await signUpAsBarber(data);
-            if (res.name === 'AxiosError') {
-                toast.error(res.response.data.message);
-                console.log(res);
-            } else {
-                const r = await updateBarberLogo(file,res.data.token);
-                toast.success("Successfully Accessed");
+    const submitSignUp  = async (e) => {
+        e.preventDefault();
+        try {
+            if(file.has("image")) {
+                const res = await signUpAsBarber(data).unwrap();
+                await updateBarberAvatar({body: file, token: res?.token}).unwrap();
+                toast.success("Successfully Signed Up");
                 navigate('/sign-in');
+            }else {
+                toast.error("Logo is Missed");
             }
-            console.log(data, file);
-            setLoading(false);
-        }else {
-            toast.error("Logo is Missed");
-            setLoading(false);
-
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
     }
 
@@ -75,8 +72,8 @@ function BarberShopSignUpForm() {
                            placeholder="Password" onChange={(e)=>change("password",e.target.value)}/>
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
-                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signUp()}>{
-                    loading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"
+                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={(e)=>submitSignUp(e)}>{
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"
                 }</button>
                 <p className="text-center mt-3">Already have an Account? <Link to="/sign-in">Sign In</Link></p>
             </div>

@@ -11,6 +11,13 @@ export const customersApiSlice = apiSlice.injectEndpoints({
                 body: data
             })
         }),
+        signUpAsCustomer: builder.mutation({
+            query: (data) => ({
+                url: `${CUSTOMERS_URL}/signup`,
+                method: 'post',
+                body: data
+            })
+        }),
         loginBySocialNetwork: builder.mutation({
             query: (data) => ({
                 url: `${CUSTOMERS_URL}/signin`,
@@ -62,6 +69,7 @@ export const customersApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useLoginAsCustomerMutation,
+    useSignUpAsCustomerMutation,
     useUpdateAvatarMutation,
     useUpdateInfosMutation,
     useLoginBySocialNetworkMutation,

@@ -13,7 +13,7 @@ function BarberShopSignInForm() {
     const [data, setData] = React.useState({});
 
     const dispatch = useDispatch();
-    const [loginAsBarber, { isLoading, error }] = useLoginAsBarberMutation();
+    const [loginAsBarber, { isLoading }] = useLoginAsBarberMutation();
 
     const change = (index,value) => {
         if(value === ""){

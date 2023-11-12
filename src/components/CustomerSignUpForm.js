@@ -1,16 +1,16 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {signUpAsCustomer} from "../services/authService";
 import toast from "react-hot-toast";
-import {BeatLoader} from "react-spinners";
+import { BeatLoader } from "react-spinners";
 import { Calendar } from 'primereact/calendar';
+import {useSignUpAsCustomerMutation} from "../redux/slices/customerApiSlice";
+
 
 function CustomerSignUpForm() {
     let navigate = useNavigate();
 
+    const [signUpAsCustomer, {isLoading}] = useSignUpAsCustomerMutation();
     const [data, setData] = React.useState({gender: "Male"});
-    const [loading, setLoading] = React.useState(false);
-
 
     const change = (index,value) => {
         if(value === ""){
@@ -24,19 +24,17 @@ function CustomerSignUpForm() {
         }
     }
 
-    const signUp = async() => {
-        setLoading(true);
-        const res = await signUpAsCustomer(data);
-        if(res.name === 'AxiosError'){
-            toast.error(res.response.data.message);
-            console.log(res);
-        }else{
-            toast.success("Successfully Accessed");
-            navigate('/sign-in');
+    const submitSignUp  = async (e) => {
+        e.preventDefault();
+        try {
+            await signUpAsCustomer(data).unwrap();
+            toast.success("Successfully Sign Up");
+            navigate('/login');
+        }catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
-        setLoading(false);
     }
-
 
     let calendarStyle = {
         color: "#6C7293",
@@ -78,8 +76,8 @@ function CustomerSignUpForm() {
                     <Calendar placeholder="Birth Date" style={calendarStyle} value={data.birthDate} onChange={(e) => change("birthDate",e.target.value)} showIcon />
                 </div>
 
-                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>signUp()}>{
-                    loading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"
+                <button type="submit" className="btn-primary py-3 w-100 mb-2" onClick={()=>submitSignUp()}>{
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"
                 }</button>
 
                 <div className="separator">OR</div>

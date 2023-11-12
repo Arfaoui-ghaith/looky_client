@@ -14,7 +14,7 @@ function CustomerSignInForm() {
     const [data, setData] = React.useState({});
 
     const dispatch = useDispatch();
-    const [loginAsCustomer, { isLoading, error }] = useLoginAsCustomerMutation();
+    const [loginAsCustomer, { isLoading }] = useLoginAsCustomerMutation();
     const [loginBySocialNetwork] = useLoginAsCustomerMutation();
 
     const change = (index,value) => {

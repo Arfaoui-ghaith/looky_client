@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Table,
     TableHeader,
@@ -20,6 +20,11 @@ import {VerticalDotsIcon} from "../icons/VerticalDotsIcon";
 import {SearchIcon} from "../icons/SearchIcon";
 import {ChevronDownIcon} from "../icons/ChevronDownIcon";
 import {capitalize} from "../utils";
+import {Dialog} from "primereact/dialog";
+import {useDispatch, useSelector} from "react-redux";
+import {Button as Btn} from "primereact/button";
+import {BeatLoader} from "react-spinners";
+import {setAppointment} from "../../redux/slices/data";
 
 const statusColorMap = {
     confirmed: "success",
@@ -48,7 +53,10 @@ const INITIAL_VISIBLE_COLUMNS = ["name", "date", "service", "price", "status", "
 
 export default function AppointmentsTable({isLoading, appointments}) {
 
-    console.log(appointments)
+    let dispatch = useDispatch();
+    let { appointment: selectedAppointment } = useSelector(state => state.data);
+    const [visibleFeedbackDialog, setVisibleFeedbackDialog] = useState(false);
+    const [visibleFeedbackUnavailableDialog, setVisibleFeedbackUnavailableDialog] = useState(false);
 
     const [filterValue, setFilterValue] = React.useState("");
     const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
@@ -59,6 +67,39 @@ export default function AppointmentsTable({isLoading, appointments}) {
         column: "date",
         direction: "descending",
     });
+
+    const showDialog = () => {
+        if (selectedAppointment?.status === "waiting") {
+            setVisibleFeedbackDialog(true);
+        }else {
+            setVisibleFeedbackUnavailableDialog(true);
+        }
+    }
+
+
+
+    const footerConfirmContent = (
+        <div>
+            <Btn label="No" icon="pi pi-times" onClick={() => setVisibleFeedbackDialog(false)} className="p-button-text" />
+            <Btn icon="pi pi-check" onClick={() => console.log()} >
+                {
+                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                }
+            </Btn>
+        </div>
+    );
+
+    const footerFeedbackUnavailableContent = (
+        <div>
+            <Btn label="Ok" onClick={() => setVisibleFeedbackUnavailableDialog(false)} className="p-button-text" />
+        </div>
+    );
+
+
+
+
+
+
     const [page, setPage] = React.useState(1);
 
     const hasSearchFilter = Boolean(filterValue);
@@ -142,8 +183,8 @@ export default function AppointmentsTable({isLoading, appointments}) {
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu>
-                                <DropdownItem>View</DropdownItem>
-                                <DropdownItem>Update</DropdownItem>
+                                <DropdownItem>View Service</DropdownItem>
+                                <DropdownItem key={appointment.id+"edit"} onClick={() => {dispatch(setAppointment({...appointment})); showDialog();}}>Give FeedBack</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -319,6 +360,43 @@ export default function AppointmentsTable({isLoading, appointments}) {
                     )}
                 </TableBody>
             </Table>
+
+            <div className="card flex justify-content-center">
+                <Dialog header="Appointment Feedback" visible={visibleFeedbackDialog} style={{ width: '30vw' }} onHide={() => setVisibleFeedbackDialog(false)} footer={footerConfirmContent}>
+
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Barber Shop</strong> : {selectedAppointment?.name}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Barber Email</strong> : {selectedAppointment?.email}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {selectedAppointment?.service}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(selectedAppointment?.date)).toLocaleDateString("fr-FR")}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(selectedAppointment?.date)).getUTCHours()}h{(new Date(selectedAppointment?.date)).getUTCMinutes()}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Status</strong> : <Chip className="capitalize" color={statusColorMap[selectedAppointment?.status]} size="sm" variant="flat">
+                        {selectedAppointment?.status}
+                    </Chip>
+                    </p>
+                </Dialog>
+            </div>
+
+            <div className="card flex justify-content-center">
+                <Dialog header="Feedback Unavailable" visible={visibleFeedbackUnavailableDialog} style={{ width: '50vw' }} onHide={() => setVisibleFeedbackUnavailableDialog(false)} footer={footerFeedbackUnavailableContent}>
+
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        We're sorry, but feedback is currently unavailable for this appointment as its status is <Chip className="capitalize" color={statusColorMap[selectedAppointment?.status]} size="sm" variant="flat">
+                        {selectedAppointment?.status}
+                    </Chip> Please check back later or contact support for assistance.
+                    </p>
+                </Dialog>
+            </div>
         </div>
     );
 }

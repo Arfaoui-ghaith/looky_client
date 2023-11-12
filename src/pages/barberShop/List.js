@@ -3,24 +3,16 @@ import NavBar from "../../components/NavBar";
 import BarberCard from "../../components/BarberCard";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
-import { fetchBarberShops } from "../../services/barberShopService";
+import {useGetBarbersQuery} from "../../redux/slices/barberApiSlice";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 function List() {
-    const [barbers, setBarbers] = React.useState([]);
 
+    let {data: res, isLoading } = useGetBarbersQuery();
 
-    React.useEffect( () => {
-        async function fetchData() {
-            const res = await fetchBarberShops();
-            if (res.name === 'AxiosError') {
-                console.log(res);
-            } else {
-                const {barberShops} = res.data;
-                setBarbers(barberShops);
-            }
-        }
-        fetchData().then();
-    },[])
+    if(isLoading){
+        return <LoadingSpinner isLoading={isLoading}/>
+    }
 
     return (
         <React.Fragment>
@@ -46,7 +38,7 @@ function List() {
                     </div>
                     <div className="row g-4">
                         {
-                            barbers.map(b => <BarberCard key={b.id} barber={b}/>)
+                            res?.barbers.map(b => <BarberCard key={b.id} barber={b}/>)
                         }
                     </div>
                 </div>

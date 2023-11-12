@@ -11,7 +11,6 @@ import {useSelector} from "react-redux";
 import MultiUploader from "./MultiUploader";
 
 function AddService({barber,visible,onChange}) {
-    let navigate = useNavigate();
 
     const [data, setData] = React.useState({description: ''});
     const [text, setText] = useState('');
@@ -19,7 +18,7 @@ function AddService({barber,visible,onChange}) {
     const [serviceId, setServiceId] = useState();
 
     let { userInfo } = useSelector(state => state.auth);
-    const [addService, { isLoading,isSuccess, error }] = useAddServiceMutation();
+    const [addService, { isLoading,isSuccess }] = useAddServiceMutation();
 
     const submitAddService  = async (e) => {
         data.description = text;
