@@ -25,7 +25,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {Dialog} from "primereact/dialog";
 import {Button as Btn} from "primereact/button";
 import {BeatLoader} from "react-spinners";
-import {Mention} from "primereact/mention";
+import {useUpdateAppointmentMutation} from "../redux/slices/appointmentsApiSlice";
+import toast from "react-hot-toast";
 
 const statusColorMap = {
     confirmed: "success",
@@ -57,30 +58,31 @@ export default function AppointmentsTable({isLoading, appointments}) {
     let { appointment } = useSelector(state => state.data);
     const [visibleConfirmDialog, setVisibleConfirmDialog] = useState(false);
     const [visibleCancelDialog, setVisibleCancelDialog] = useState(false);
-    const [data, setData] = React.useState({});
 
+    let { userInfo } = useSelector((state) => state.auth);
+    const [updateAppointment, { isLoading: appointmentLoading }] = useUpdateAppointmentMutation();
 
-
-
-    const change = (index,value) => {
-        if(value === "" || value === null || value === undefined){
-            let form = data;
-            delete form[index];
-            setData(form);
-        }else {
-            let form = {...data};
-            form[index] = value;
-            setData(form);
+    const updateAppointmentStatus = async (status) => {
+        try {
+            const res = await updateAppointment({
+                body: {status},
+                token: userInfo.token,
+                id: appointment?.id
+            }).unwrap();
+            console.log(res);
+            toast.success("Appointment updated Successfully!");
+        } catch (err) {
+            toast.error(err?.data?.message);
+            console.error(err);
         }
     }
-
 
     const footerConfirmContent = (
         <div>
             <Btn label="No" icon="pi pi-times" onClick={() => setVisibleConfirmDialog(false)} className="p-button-text" />
-            <Btn icon="pi pi-check" onClick={() => console.log()} >
+            <Btn icon="pi pi-check" onClick={() => updateAppointmentStatus('confirmed')} >
                 {
-                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                    appointmentLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
                 }
             </Btn>
         </div>
@@ -89,9 +91,9 @@ export default function AppointmentsTable({isLoading, appointments}) {
     const footerCancelContent = (
         <div>
             <Btn label="No" icon="pi pi-times" onClick={() => setVisibleCancelDialog(false)} className="p-button-text" />
-            <Btn icon="pi pi-check" onClick={() => console.log()} >
+            <Btn icon="pi pi-check" onClick={() => updateAppointmentStatus('refused')} >
                 {
-                    isLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
+                    appointmentLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
                 }
             </Btn>
         </div>

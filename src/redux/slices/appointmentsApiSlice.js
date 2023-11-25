@@ -23,7 +23,17 @@ export const appointmentsApiSlice = apiSlice.injectEndpoints({
                 body: data.body
             })
         }),
+        updateAppointment: builder.mutation({
+           query: (data) => ({
+               url: `${APPOINTMENTS_URL}/${data.id}`,
+               method: 'put',
+               headers: {
+                   'Authorization': data.token,
+               },
+               body: data.body
+           })
+        })
     })
 });
 
-export const { useAppointmentsQuery, useBookAppointmentMutation } = appointmentsApiSlice;
+export const { useAppointmentsQuery, useBookAppointmentMutation, useUpdateAppointmentMutation } = appointmentsApiSlice;
