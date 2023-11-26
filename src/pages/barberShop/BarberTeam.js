@@ -77,9 +77,14 @@ function BarberTeam() {
     }
   };
 
+  console.log(res);
+
+  if(isLoading){
+    return (<LoadingSpinner isLoading={isLoading}/>)
+  }
+
   return (
     <React.Fragment>
-      <LoadingSpinner isLoading={isLoading} />
       <NavBar />
       <PageHeader title="Your Team" />
 
@@ -144,7 +149,7 @@ function BarberTeam() {
                   <div className="team-img position-relative overflow-hidden">
                     <img
                       className="img-fluid"
-                      src={checkImage(member.image)}
+                      src={checkImage(member?.image)}
                       alt=""
                     />
                     <ConfirmPopup />
@@ -168,9 +173,9 @@ function BarberTeam() {
                     </div>
                   </div>
                   <div className="bg-secondary text-center p-4">
-                    <h6 className="text-uppercase">{`${member.firstName} ${member.lastName}`}</h6>
+                    <h6 className="text-uppercase">{`${member?.firstName} ${member?.lastName}`}</h6>
                     <span className="text-primary">
-                      {member.title != null ? member.title : "Barber"}
+                      {member.title != null ? member?.title : "Barber"}
                     </span>
                   </div>
                 </div>

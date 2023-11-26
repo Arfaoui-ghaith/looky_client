@@ -58,6 +58,8 @@ export default function AppointmentsTable({isLoading, appointments}) {
     let { appointment } = useSelector(state => state.data);
     const [visibleConfirmDialog, setVisibleConfirmDialog] = useState(false);
     const [visibleCancelDialog, setVisibleCancelDialog] = useState(false);
+    const [visibleDisplayDialog, setVisibleDisplayDialog] = useState(false);
+
 
     let { userInfo } = useSelector((state) => state.auth);
     const [updateAppointment, { isLoading: appointmentLoading }] = useUpdateAppointmentMutation();
@@ -96,6 +98,12 @@ export default function AppointmentsTable({isLoading, appointments}) {
                     appointmentLoading ? <BeatLoader color="#fff" size={10} /> : "Yes"
                 }
             </Btn>
+        </div>
+    );
+
+    const footerDisplayContent = (
+        <div>
+            <Btn label="No" onClick={() => setVisibleDisplayDialog(false)} className="p-button-text" />
         </div>
     );
 
@@ -196,10 +204,16 @@ export default function AppointmentsTable({isLoading, appointments}) {
                                     <VerticalDotsIcon className="text-default-300" />
                                 </Button>
                             </DropdownTrigger>
-                            <DropdownMenu>
-                                <DropdownItem key={appointment.id+"edit"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleConfirmDialog(true);}}>Confirm</DropdownItem>
-                                <DropdownItem key={appointment.id+"edit"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleCancelDialog(true);}}>Cancel</DropdownItem>
-                            </DropdownMenu>
+                            { appointment.status === 'waiting' ?
+                                <DropdownMenu>
+                                    <DropdownItem key={appointment.id+"confirm"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleConfirmDialog(true);}}>Confirm</DropdownItem>
+                                    <DropdownItem key={appointment.id+"cancel"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleCancelDialog(true);}}>Cancel</DropdownItem>
+                                </DropdownMenu>
+                                :
+                                <DropdownMenu>
+                                    <DropdownItem key={appointment.id+"display"} onClick={() => {dispatch(setAppointment({...appointment})); setVisibleDisplayDialog(true);}}>View Details</DropdownItem>
+                                </DropdownMenu>
+                            }
                         </Dropdown>
                     </div>
                 );
@@ -413,6 +427,30 @@ export default function AppointmentsTable({isLoading, appointments}) {
                     <p className="m-0" style={{ color: "#fff" }}>
                         Do you want to <strong style={{color: "#EB1616"}}>cancel</strong> this appointment ?
                     </p>
+
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment?.name}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Email</strong> : {appointment?.email}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Service</strong> : {appointment?.service}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Price</strong> : {appointment?.price}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Date</strong> : {(new Date(appointment?.date)).toLocaleDateString("fr-FR")}
+                    </p>
+                    <p className="m-2" style={{ color: "#fff" }}>
+                        <strong className="mx-auto" style={{color: "#EB1616"}}>Time</strong> : {(new Date(appointment?.date)).getUTCHours()}h{(new Date(appointment?.date)).getUTCMinutes()}
+                    </p>
+                </Dialog>
+            </div>
+
+            <div className="card flex justify-content-center">
+                <Dialog header="Appointment Details" visible={visibleDisplayDialog} style={{ width: '30vw' }} onHide={() => setVisibleDisplayDialog(false)} footer={footerDisplayContent}>
 
                     <p className="m-2" style={{ color: "#fff" }}>
                         <strong className="mx-auto" style={{color: "#EB1616"}}>Customer</strong> : {appointment?.name}

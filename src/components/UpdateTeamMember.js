@@ -73,7 +73,7 @@ function UpdateTeamMember({ visible, onChange }) {
     >
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-between">
-          <ImageUploader f={member.image} onChange={(file) => setFile(file)} />
+          <ImageUploader f={member?.image} onChange={(file) => setFile(file)} />
         </div>
         <div className="ml-2 mt-3">
           <div className="d-flex align-items-center justify-content-between mb-3">
@@ -82,7 +82,7 @@ function UpdateTeamMember({ visible, onChange }) {
                 type="text"
                 className="form-control"
                 id="floatingText"
-                defaultValue={member.firstName}
+                defaultValue={member?.firstName}
                 onChange={(e) => change("firstName", e.target.value)}
               />
               <label htmlFor="floatingText">First Name</label>
@@ -92,7 +92,7 @@ function UpdateTeamMember({ visible, onChange }) {
                 type="text"
                 className="form-control"
                 id="floatingText"
-                defaultValue={member.lastName}
+                defaultValue={member?.lastName}
                 onChange={(e) => change("lastName", e.target.value)}
               />
               <label htmlFor="floatingText">Last Name</label>
@@ -103,7 +103,7 @@ function UpdateTeamMember({ visible, onChange }) {
               type="text"
               className="form-control"
               id="floatingInput"
-              defaultValue={member.title}
+              defaultValue={member?.title}
               placeholder="member role"
               onChange={(e) => change("title", e.target.value)}
             />
@@ -118,7 +118,7 @@ function UpdateTeamMember({ visible, onChange }) {
         >
           <i className="pi pi-facebook" />
         </span>
-        <InputText placeholder="Facebook" defaultValue={member.facebook} />
+        <InputText placeholder="Facebook" defaultValue={member?.facebook} />
       </div>
       <div className="p-inputgroup mb-2">
         <span
@@ -127,7 +127,7 @@ function UpdateTeamMember({ visible, onChange }) {
         >
           <i className="pi pi-youtube" />
         </span>
-        <InputText placeholder="Youtube" defaultValue={member.youtube} />
+        <InputText placeholder="Youtube" defaultValue={member?.youtube} />
       </div>
       <div className="p-inputgroup mb-4">
         <span
@@ -136,7 +136,7 @@ function UpdateTeamMember({ visible, onChange }) {
         >
           <i className="pi pi-instagram" />
         </span>
-        <InputText placeholder="Instagram" defaultValue={member.instagram} />
+        <InputText placeholder="Instagram" defaultValue={member?.instagram} />
       </div>
 
       <div>

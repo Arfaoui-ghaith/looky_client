@@ -864,12 +864,12 @@
 }
 
 .p-editor-container .p-editor-toolbar {
-    background: #f8f9fa;
+    background: #000000;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
 }
 .p-editor-container .p-editor-toolbar.ql-snow {
-    border: 1px solid #dee2e6;
+    border: 1px solid #000000;
 }
 .p-editor-container .p-editor-toolbar.ql-snow .ql-stroke {
     stroke: #6c757d;
@@ -921,10 +921,10 @@
     border-bottom-left-radius: 6px;
 }
 .p-editor-container .p-editor-content.ql-snow {
-    border: 1px solid #dee2e6;
+    border: 1px solid #000000;
 }
 .p-editor-container .p-editor-content .ql-editor {
-    background: #ffffff;
+    background: #000000;
     color: #495057;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;

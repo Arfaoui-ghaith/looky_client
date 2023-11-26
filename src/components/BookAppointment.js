@@ -87,7 +87,7 @@ function BookAppointment({barber,visible,onChange}) {
                             </option>)
                         }
                     </select>
-                    <label htmlFor="floatingSelect">Works with selects</label>
+                    <label htmlFor="floatingSelect">Select service</label>
                 </div>
                 <div className="form-floating mb-3">
                     <Calendar placeholder="Date" style={calendarStyle} value={data.date} onChange={(e) => change("date",e.target.value)} showIcon />

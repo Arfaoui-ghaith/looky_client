@@ -34,15 +34,19 @@ function BarberShopAppointments() {
                     price: `${ap.service.price} DT`,
                     avatar: ap.customer.image ? ap.customer.image : '/img/hairstyle.png',
                     email: ap.customer.email,
+                    appointment: ap
                 }
             })
         }
         return []
     }
 
+    if(isLoading){
+        return (<LoadingSpinner isLoading={isLoading}/>)
+    }
+
     return (
         <React.Fragment>
-            <LoadingSpinner isLoading={isLoading}/>
             <NavBar/>
             <PageHeader title="Appointments"/>
 

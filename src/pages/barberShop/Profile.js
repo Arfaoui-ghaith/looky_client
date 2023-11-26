@@ -9,7 +9,7 @@ import {useInfosQuery} from "../../redux/slices/barberApiSlice";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BarberShopPasswordForm from "../../components/barberShop/BarberShopPasswordForm";
 import BarberShopProfileInfosForm from "../../components/barberShop/BarberShopProfileInfosForm";
-import BarberShopPhonesForm from "../../components/barberShop/BarberShopPhonesForm";
+import BarberShopWorkingHoursForm from "../../components/barberShop/BarberShopWorkingHoursForm";
 function BarberShopProfile() {
     let { userInfo } = useSelector(state => state.auth);
     let {data: res, isLoading, isSuccess } = useInfosQuery({token: userInfo.token});
@@ -24,10 +24,10 @@ function BarberShopProfile() {
         );
     };
 
-    const phonesTab = (options) => {
+    const hoursTab = (options) => {
         return (
             <button type="button" onClick={options.onClick} className={options.className}>
-                <i className="pi pi-phone mr-2" />
+                <i className="pi pi-stopwatch mr-2" />
                 {options.titleElement}
             </button>
         );
@@ -72,9 +72,9 @@ function BarberShopProfile() {
                             }
                         </TabPanel>
 
-                        <TabPanel header="Phones" headerTemplate={phonesTab} headerClassName="flex align-items-center">
+                        <TabPanel header="Working Hours" headerTemplate={hoursTab} headerClassName="flex align-items-center">
                             {
-                                isSuccess ? <BarberShopPhonesForm barber={res.barberShop} /> : ''
+                                isSuccess ? <BarberShopWorkingHoursForm barber={res.barberShop} /> : ''
                             }
                         </TabPanel>
 
