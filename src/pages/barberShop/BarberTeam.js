@@ -79,8 +79,8 @@ function BarberTeam() {
 
   console.log(res);
 
-  if(isLoading){
-    return (<LoadingSpinner isLoading={isLoading}/>)
+  if (isLoading) {
+    return <LoadingSpinner isLoading={isLoading} />;
   }
 
   return (
